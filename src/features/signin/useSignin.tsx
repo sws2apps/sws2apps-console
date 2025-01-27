@@ -27,6 +27,7 @@ const useSignin = () => {
 
       if (logged) {
         setIsProcessing(false);
+        setUserConnected(true);
         return;
       }
 
