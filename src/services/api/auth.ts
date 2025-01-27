@@ -65,7 +65,7 @@ export const apiVerifyOTP = async (userOTP: string) => {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${idToken}`,
-        appclient: 'organized',
+        appclient: 'admin',
         appversion,
       },
       body: JSON.stringify({ token: userOTP }),
