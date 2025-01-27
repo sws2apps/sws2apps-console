@@ -23,6 +23,13 @@ const useSignin = () => {
 
       setIsProcessing(true);
 
+      const logged = await apiAuthorizeUser();
+
+      if (logged) {
+        setIsProcessing(false);
+        return;
+      }
+
       const data = await apiLoginUser();
 
       if (data.message === 'MFA_VERIFY') {
