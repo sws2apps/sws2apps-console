@@ -1,6 +1,9 @@
 name: CD
 
 on:
+  push:
+    branches: [main]
+
   workflow_dispatch:
 
 permissions: read-all
@@ -8,7 +11,7 @@ permissions: read-all
 jobs:
   dev_deploy:
     name: Build and Deploy to Production
-    if: ${{ github.repository == 'sws2apps/sws2apps-web' && github.ref == 'refs/heads/main' }}
+    if: ${{ github.repository == 'sws2apps/sws2apps-console' && github.ref == 'refs/heads/main' }}
     environment:
       name: Prod.env
       url: https://console.sws2apps.com
@@ -33,13 +36,13 @@ jobs:
       - name: Install package dependencies
         run: npm ci
 
-      - name: Run Semantic Release to version and build App
-        run: npx semantic-release
+      - name: Build artifacts
+        run: npm run build
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           VITE_FIREBASE_APIKEY: ${{ secrets.VITE_FIREBASE_APIKEY }}
           VITE_FIREBASE_AUTHDOMAIN: ${{ secrets.VITE_FIREBASE_AUTHDOMAIN }}
           VITE_FIREBASE_PROJECTID: ${{ secrets.VITE_FIREBASE_PROJECTID }}
+          VITE_FIREBASE_APPID: ${{ secrets.VITE_FIREBASE_APPID }}
 
       - name: Check if new version has been generated
         id: check_build

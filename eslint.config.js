@@ -1,32 +1,49 @@
+import js from '@eslint/js';
 import globals from 'globals';
-import pluginJs from '@eslint/js';
-import pluginReact from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
+import tseslint from 'typescript-eslint';
 
-export default [
-  { files: ['**/*.{js,mjs,cjs,ts,jsx,tsx}'] },
-  { languageOptions: { globals: globals.browser } },
-  pluginJs.configs.recommended,
-  pluginReact.configs.flat.recommended,
+export default tseslint.config(
+  { ignores: ['dist'] },
   {
+    extends: [js.configs.recommended, ...tseslint.configs.recommended],
+    files: ['**/*.{ts,tsx}'],
+    languageOptions: {
+      ecmaVersion: 2020,
+      globals: globals.browser,
+    },
     plugins: {
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
     },
-    settings: { react: { version: '18.2' } },
+    settings: {
+      'import/resolver': {
+        typescript: {},
+        node: {
+          extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        },
+        alias: {
+          extensions: ['.js', '.jsx', '.ts', '.tsx'],
+          map: [
+            ['@components', './src/components'],
+            ['@pages', './src/pages'],
+            ['@features', './src/features'],
+            ['@icons', './src/icons'],
+            ['@states', './src/states'],
+            ['@services', './src/services'],
+            ['@types', './src/types'],
+            ['@definition', './src/definition'],
+          ],
+        },
+      },
+    },
     rules: {
       ...reactHooks.configs.recommended.rules,
-      'react/prop-types': 0,
-      'react/react-in-jsx-scope': 'off',
       'react-refresh/only-export-components': [
         'warn',
-        {
-          allowConstantExport: true,
-        },
+        { allowConstantExport: true },
       ],
-      'react/jsx-uses-react': 'error',
-      'react/jsx-uses-vars': 'error',
     },
-  },
-];
+  }
+);
