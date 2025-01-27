@@ -1,8 +1,14 @@
-import { Box, Button, TextField, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  CircularProgress,
+  TextField,
+  Typography,
+} from '@mui/material';
 import useMFAVerify from './useMFAVerify';
 
 const MFAVerify = () => {
-  const { otpRef } = useMFAVerify();
+  const { otpRef, handleVerifyOTP, isProcessing } = useMFAVerify();
 
   return (
     <>
@@ -17,8 +23,20 @@ const MFAVerify = () => {
           gap: '12px',
         }}
       >
-        <TextField label="Enter 2FA code" inputRef={otpRef} />
-        <Button variant="contained">Verify</Button>
+        <TextField
+          label="Enter 2FA code"
+          inputRef={otpRef}
+          slotProps={{ input: { readOnly: isProcessing } }}
+        />
+        <Button
+          variant="contained"
+          onClick={handleVerifyOTP}
+          endIcon={
+            isProcessing && <CircularProgress size={18} color="inherit" />
+          }
+        >
+          Verify
+        </Button>
       </Box>
     </>
   );
