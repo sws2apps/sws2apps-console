@@ -1,29 +1,29 @@
 import { useEffect, useState } from 'react';
-import { useAtom, useSetAtom } from 'jotai';
+import { useSetAtom } from 'jotai';
 import { useQuery } from '@tanstack/react-query';
 import {
   apiCongregationDelete,
   apiCongregationPersonsGet,
   apiCongregationsGet,
 } from '@services/api/congregations';
-import {
-  congregationPersonsState,
-  congregationsState,
-} from '@states/congregations';
+import { congregationsState } from '@states/congregations';
 import { showNotification } from '@services/app/notification';
+import { apiUserDelete, apiUserDisableMFA } from '@services/api/users';
+import { APICongregationPerson } from '@definition/api';
 
 const useCongregationItem = (id: string) => {
   const [expanded, setExpanded] = useState(false);
 
   const { data: congUsers, isLoading } = useQuery({
     queryFn: () => apiCongregationPersonsGet(id),
-    queryKey: [`congregation-${id}-users`],
+    queryKey: ['congregations', id],
     enabled: expanded,
+    refetchOnMount: 'always',
   });
 
-  const [persons, setPersons] = useAtom(congregationPersonsState);
-
   const setCongregations = useSetAtom(congregationsState);
+
+  const [persons, setPersons] = useState<APICongregationPerson[]>([]);
 
   const handleDeleteCongregation = async () => {
     try {
@@ -31,6 +31,32 @@ const useCongregationItem = (id: string) => {
 
       const congregations = await apiCongregationsGet();
       setCongregations(congregations);
+    } catch (error) {
+      console.error(error);
+
+      showNotification((error as Error).message, 'error');
+    }
+  };
+
+  const handleDeleteUser = async (userId: string) => {
+    try {
+      await apiUserDelete(userId);
+
+      const persons = await apiCongregationPersonsGet(id);
+      setPersons(persons);
+    } catch (error) {
+      console.error(error);
+
+      showNotification((error as Error).message, 'error');
+    }
+  };
+
+  const handleDisableMFA = async (userId: string) => {
+    try {
+      await apiUserDisableMFA(userId);
+
+      const persons = await apiCongregationPersonsGet(id);
+      setPersons(persons);
     } catch (error) {
       console.error(error);
 
@@ -56,6 +82,8 @@ const useCongregationItem = (id: string) => {
     isLoading,
     persons,
     handleDeleteCongregation,
+    handleDeleteUser,
+    handleDisableMFA,
   };
 };
 

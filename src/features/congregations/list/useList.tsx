@@ -19,6 +19,7 @@ const useCongregationsList = () => {
   const { data: countries, isLoading: isLoadingCountries } = useQuery({
     queryFn: apiCountriesGet,
     queryKey: ['countries'],
+    staleTime: 24 * 60 * 60 * 1000,
   });
 
   const setCountries = useSetAtom(countriesState);

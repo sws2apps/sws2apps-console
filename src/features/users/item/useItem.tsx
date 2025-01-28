@@ -1,14 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
-import { useSetAtom } from 'jotai';
 import { APICongregationPerson } from '@definition/api';
-import { apiUserDelete, apiUserDisableMFA } from '@services/api/users';
-import { congregationsState } from '@states/congregations';
-import { apiCongregationsGet } from '@services/api/congregations';
-import { showNotification } from '@services/app/notification';
 
 const useUserItem = (person: APICongregationPerson) => {
-  const setCongregations = useSetAtom(congregationsState);
-
   const fullname = useMemo(() => {
     const lastname = person.profile.lastname.value;
     const firstname = person.profile.firstname.value;
@@ -35,32 +28,6 @@ const useUserItem = (person: APICongregationPerson) => {
   const [lastname, setLastname] = useState('');
   const [email, setEmail] = useState('');
 
-  const handleDeleteUser = async () => {
-    try {
-      await apiUserDelete(person.id);
-
-      const congregations = await apiCongregationsGet();
-      setCongregations(congregations);
-    } catch (error) {
-      console.error(error);
-
-      showNotification((error as Error).message, 'error');
-    }
-  };
-
-  const handleDisableMFA = async () => {
-    try {
-      await apiUserDisableMFA(person.id);
-
-      const congregations = await apiCongregationsGet();
-      setCongregations(congregations);
-    } catch (error) {
-      console.error(error);
-
-      showNotification((error as Error).message, 'error');
-    }
-  };
-
   useEffect(() => {
     const lastname = person.profile.lastname.value;
     setLastname(lastname);
@@ -78,8 +45,6 @@ const useUserItem = (person: APICongregationPerson) => {
     lastname,
     email,
     last_seen,
-    handleDeleteUser,
-    handleDisableMFA,
   };
 };
 

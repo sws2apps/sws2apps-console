@@ -1,6 +1,6 @@
 import { atom } from 'jotai';
 import { CongregationByCountry } from '@definition/congregation';
-import { APICongregation, APICongregationPerson } from '@definition/api';
+import { APICongregation } from '@definition/api';
 import { countriesState } from './countries';
 
 export const congregationSearchState = atom('');
@@ -60,7 +60,10 @@ export const congregationsByCountryState = atom((get) => {
 
 export const congregationsByCountryCountState = atom((get) => {
   const congregations = get(congregationsByCountryState);
-  return congregations.length;
-});
 
-export const congregationPersonsState = atom<APICongregationPerson[]>([]);
+  const count = congregations.reduce((acc, current) => {
+    return acc + current.congregations.length;
+  }, 0);
+
+  return count;
+});
