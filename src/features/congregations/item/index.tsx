@@ -1,4 +1,4 @@
-import { Box, Button, CircularProgress, Typography } from '@mui/material';
+import { Box, CircularProgress, Typography } from '@mui/material';
 import {
   Accordion,
   AccordionDetails,
@@ -8,6 +8,7 @@ import { IconCongregation } from '@icons/index';
 import { CongregationItemProps } from './index.type';
 import useCongregationItem from './useItem';
 import UserItem from '@features/users/item';
+import DeleteCongregation from '../delete_congregation';
 
 const CongregationItem = ({ congregation }: CongregationItemProps) => {
   const {
@@ -18,6 +19,8 @@ const CongregationItem = ({ congregation }: CongregationItemProps) => {
     handleDeleteCongregation,
     handleDeleteUser,
     handleDisableMFA,
+    handleUpdateUserBasic,
+    isProcessing,
   } = useCongregationItem(congregation.id);
 
   return (
@@ -29,11 +32,22 @@ const CongregationItem = ({ congregation }: CongregationItemProps) => {
         aria-controls={`panel-${congregation.id}-content"`}
         id={`panel-${congregation.id}-header"`}
       >
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <IconCongregation />
-          <Typography>
-            {congregation.cong_name} ({congregation.cong_number})
-          </Typography>
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            width: '100%',
+          }}
+        >
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <IconCongregation />
+            <Typography>
+              ({congregation.cong_number}) {congregation.cong_name}
+            </Typography>
+          </Box>
+
+          {isProcessing && <CircularProgress size={20} />}
         </Box>
       </AccordionSummary>
       <AccordionDetails>
@@ -48,20 +62,13 @@ const CongregationItem = ({ congregation }: CongregationItemProps) => {
                 <Box
                   sx={{ display: 'flex', alignItems: 'center', gap: '12px' }}
                 >
-                  <Button variant="contained">Rename</Button>
-                  <Button
-                    variant="contained"
-                    color="error"
-                    onClick={handleDeleteCongregation}
-                  >
-                    Delete
-                  </Button>
+                  <DeleteCongregation onConfirm={handleDeleteCongregation} />
                 </Box>
 
                 {persons.length > 0 && (
                   <>
                     <Typography fontWeight="bold">
-                      Congregation persons ({persons.length})
+                      PERSONS ({persons.length})
                     </Typography>
                   </>
                 )}
@@ -73,6 +80,14 @@ const CongregationItem = ({ congregation }: CongregationItemProps) => {
                       person={person}
                       onDisableMFA={() => handleDisableMFA(person.id)}
                       onDelete={() => handleDeleteUser(person.id)}
+                      onUpdate={(lastname, firstname, email) =>
+                        handleUpdateUserBasic({
+                          userId: person.id,
+                          email,
+                          firstname,
+                          lastname,
+                        })
+                      }
                     />
                   ))}
                 </Box>

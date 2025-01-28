@@ -52,7 +52,7 @@ const Layout = () => {
           }}
         >
           <Suspense fallback={<CircularProgress />}>
-          <Outlet />
+            <Outlet />
           </Suspense>
         </Box>
       </Box>

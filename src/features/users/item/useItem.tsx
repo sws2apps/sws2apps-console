@@ -1,7 +1,11 @@
-import { useEffect, useMemo, useState } from 'react';
-import { APICongregationPerson } from '@definition/api';
+import { useMemo, useRef } from 'react';
+import { UserItemProps } from './index.type';
 
-const useUserItem = (person: APICongregationPerson) => {
+const useUserItem = ({ person, onUpdate }: UserItemProps) => {
+  const firstnameRef = useRef<HTMLInputElement>(null);
+  const lastnameRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+
   const fullname = useMemo(() => {
     const lastname = person.profile.lastname.value;
     const firstname = person.profile.firstname.value;
@@ -24,27 +28,21 @@ const useUserItem = (person: APICongregationPerson) => {
     return new Date(recent).toLocaleString();
   }, [person]);
 
-  const [firstname, setFirstname] = useState('');
-  const [lastname, setLastname] = useState('');
-  const [email, setEmail] = useState('');
+  const handleUpdate = () => {
+    const firstname = firstnameRef.current?.value || '';
+    const lastname = lastnameRef.current?.value || '';
+    const email = emailRef.current?.value || '';
 
-  useEffect(() => {
-    const lastname = person.profile.lastname.value;
-    setLastname(lastname);
-
-    const firstname = person.profile.firstname.value;
-    setFirstname(firstname);
-
-    const email = person.profile.email || '';
-    setEmail(email);
-  }, [person]);
+    onUpdate(lastname, firstname, email);
+  };
 
   return {
     fullname,
-    firstname,
-    lastname,
-    email,
     last_seen,
+    firstnameRef,
+    lastnameRef,
+    emailRef,
+    handleUpdate,
   };
 };
 

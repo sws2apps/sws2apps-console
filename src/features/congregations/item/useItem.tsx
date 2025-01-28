@@ -1,14 +1,20 @@
 import { useEffect, useState } from 'react';
-import { useSetAtom } from 'jotai';
+import { useAtom, useSetAtom } from 'jotai';
 import { useQuery } from '@tanstack/react-query';
 import {
   apiCongregationDelete,
   apiCongregationPersonsGet,
-  apiCongregationsGet,
 } from '@services/api/congregations';
-import { congregationsState } from '@states/congregations';
+import {
+  congregationBusyState,
+  congregationsState,
+} from '@states/congregations';
 import { showNotification } from '@services/app/notification';
-import { apiUserDelete, apiUserDisableMFA } from '@services/api/users';
+import {
+  apiUserDelete,
+  apiUserDisableMFA,
+  apiUserUpdate,
+} from '@services/api/users';
 import { APICongregationPerson } from '@definition/api';
 
 const useCongregationItem = (id: string) => {
@@ -23,43 +29,111 @@ const useCongregationItem = (id: string) => {
 
   const setCongregations = useSetAtom(congregationsState);
 
+  const [isProcessing, setIsProcessing] = useAtom(congregationBusyState);
+
   const [persons, setPersons] = useState<APICongregationPerson[]>([]);
 
   const handleDeleteCongregation = async () => {
+    if (isProcessing) return;
+
     try {
-      await apiCongregationDelete(id);
+      setIsProcessing(true);
 
-      const congregations = await apiCongregationsGet();
+      const congregations = await apiCongregationDelete(id);
       setCongregations(congregations);
-    } catch (error) {
-      console.error(error);
 
+      setIsProcessing(false);
+    } catch (error) {
+      setIsProcessing(false);
+
+      console.error(error);
       showNotification((error as Error).message, 'error');
     }
   };
 
   const handleDeleteUser = async (userId: string) => {
+    if (isProcessing) return;
+
     try {
+      setIsProcessing(true);
+
       await apiUserDelete(userId);
 
       const persons = await apiCongregationPersonsGet(id);
       setPersons(persons);
-    } catch (error) {
-      console.error(error);
 
+      setIsProcessing(false);
+    } catch (error) {
+      setIsProcessing(false);
+
+      console.error(error);
       showNotification((error as Error).message, 'error');
     }
   };
 
   const handleDisableMFA = async (userId: string) => {
+    if (isProcessing) return;
+
     try {
+      setIsProcessing(true);
+
       await apiUserDisableMFA(userId);
 
       const persons = await apiCongregationPersonsGet(id);
       setPersons(persons);
-    } catch (error) {
-      console.error(error);
 
+      setIsProcessing(false);
+    } catch (error) {
+      setIsProcessing(false);
+
+      console.error(error);
+      showNotification((error as Error).message, 'error');
+    }
+  };
+
+  const handleUpdateUserBasic = async ({
+    email,
+    firstname,
+    lastname,
+    userId,
+  }: {
+    userId: string;
+    lastname: string;
+    firstname: string;
+    email: string;
+  }) => {
+    if (isProcessing) return;
+
+    try {
+      setIsProcessing(true);
+
+      const remote = persons.find((record) => record.id === userId)!;
+
+      const remoteLastname = remote.profile.lastname.value;
+      const remoteFirstname = remote.profile.firstname.value;
+      const remoteEmail = remote.profile?.email || '';
+
+      if (
+        remoteLastname === lastname &&
+        remoteFirstname === firstname &&
+        remoteEmail === email
+      ) {
+        showNotification('Nothing to update', 'info');
+
+        setIsProcessing(false);
+        return;
+      }
+
+      await apiUserUpdate({ id: userId, email, firstname, lastname });
+
+      const personsNew = await apiCongregationPersonsGet(id);
+      setPersons(personsNew);
+
+      setIsProcessing(false);
+    } catch (error) {
+      setIsProcessing(false);
+
+      console.error(error);
       showNotification((error as Error).message, 'error');
     }
   };
@@ -84,6 +158,8 @@ const useCongregationItem = (id: string) => {
     handleDeleteCongregation,
     handleDeleteUser,
     handleDisableMFA,
+    handleUpdateUserBasic,
+    isProcessing,
   };
 };
 

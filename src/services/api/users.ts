@@ -52,3 +52,41 @@ export const apiUserDisableMFA = async (id: string) => {
     throw new Error((error as Error).message);
   }
 };
+
+export const apiUserUpdate = async ({
+  email,
+  firstname,
+  id,
+  lastname,
+}: {
+  id: string;
+  lastname: string;
+  firstname: string;
+  email: string;
+}) => {
+  try {
+    const { apiHost, appversion, idToken } = await apiDefault();
+
+    const res = await fetch(`${apiHost}api/v3/admin/users/${id}`, {
+      method: 'PATCH',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${idToken}`,
+        appclient: 'admin',
+        appversion,
+      },
+      body: JSON.stringify({ email, firstname, lastname }),
+    });
+
+    const data = await res.json();
+
+    if (res.status !== 200) {
+      throw new Error(data?.message);
+    }
+
+    return data as APICongregationPerson[];
+  } catch (error) {
+    throw new Error((error as Error).message);
+  }
+};

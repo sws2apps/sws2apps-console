@@ -21,14 +21,18 @@ const CongregationCountry = ({ country }: CongregationCountryProps) => {
         id={`panel-${country.country_code}-header"`}
       >
         <Typography fontWeight="bold">
-          {country.country_code} ({country.country_name}) [
+          ({country.country_code}) {country.country_name} [
           {country.congregations.length}]
         </Typography>
       </AccordionSummary>
       <AccordionDetails>
-        {expanded && country.congregations.map((congregation) => (
-          <CongregationItem key={congregation.id} congregation={congregation} />
-        ))}
+        {expanded &&
+          country.congregations.map((congregation) => (
+            <CongregationItem
+              key={congregation.id}
+              congregation={congregation}
+            />
+          ))}
       </AccordionDetails>
     </Accordion>
   );

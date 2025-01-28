@@ -11,7 +11,7 @@ const CongregationsList = () => {
 
       {!isLoading && (
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-          <Typography>Showing {count} results</Typography>
+          <Typography>CONGREGATIONS: {count}</Typography>
 
           <Box>
             {countriesList.map((country) => (

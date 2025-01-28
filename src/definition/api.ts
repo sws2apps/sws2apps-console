@@ -1,3 +1,5 @@
+import { GlobalRole } from './user';
+
 export type APIUserResponseType = {
   message: string;
 };
@@ -5,6 +7,7 @@ export type APIUserResponseType = {
 export type APICongregation = {
   id: string;
   country_code: string;
+  country_name: string;
   cong_name: string;
   cong_number: string;
 };
@@ -17,7 +20,7 @@ export type APICountry = {
 
 export type APIUserProfile = {
   createdAt: string;
-  global_role: string;
+  global_role: GlobalRole;
   firstname: { value: string; updatedAt: string };
   lastname: { value: string; updatedAt: string };
   cong_role: string[];

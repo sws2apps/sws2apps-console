@@ -1,37 +1,31 @@
-import {
-  Box,
-  Button,
-  Divider,
-  Grid2 as Grid,
-  Stack,
-  TextField,
-  Typography,
-} from '@mui/material';
-import {
-  AssignmentInd,
-  Delete,
-  NoEncryptionGmailerrorred,
-  Save,
-  Shield,
-  Token,
-} from '@mui/icons-material';
+import { Box, Divider, Grid2 as Grid, Stack } from '@mui/material';
+import { NoEncryptionGmailerrorred, Token } from '@mui/icons-material';
 import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
 } from '@components/accordion';
-import { IconAccount } from '@icons/index';
 import { UserItemProps } from './index.type';
 import useUserItem from './useItem';
+import Activity from '../activity';
+import BasicInfo from '../basic_info';
+import ButtonGrid from '../button_grid';
+import DeleteUser from '../delete_user';
+import Label from '../label';
+import MFAStatus from '../mfa_status';
+import UpdateBasicInfo from '../update_ basic_info';
 
-const UserItem = ({ person,onDelete,onDisableMFA }: UserItemProps) => {
+const UserItem = (props: UserItemProps) => {
+  const { person, onDelete, onDisableMFA } = props;
+
   const {
     fullname,
-    firstname,
-    lastname,
-    email,
     last_seen,
-  } = useUserItem(person);
+    firstnameRef,
+    emailRef,
+    lastnameRef,
+    handleUpdate,
+  } = useUserItem(props);
 
   return (
     <Accordion>
@@ -39,10 +33,7 @@ const UserItem = ({ person,onDelete,onDisableMFA }: UserItemProps) => {
         aria-controls={`panel-${person.id}-content"`}
         id={`panel-${person.id}-header"`}
       >
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <IconAccount />
-          <Typography>{fullname}</Typography>
-        </Box>
+        <Label fullname={fullname} role={person.profile.global_role} />
       </AccordionSummary>
       <AccordionDetails>
         <Stack spacing="16px">
@@ -53,107 +44,47 @@ const UserItem = ({ person,onDelete,onDisableMFA }: UserItemProps) => {
               justifyContent: 'space-between',
             }}
           >
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '4px',
-              }}
-            >
-              {person.profile.global_role === 'vip' && (
-                <Shield color="warning" />
-              )}
+            <MFAStatus
+              role={person.profile.global_role}
+              mfa_enabled={person.profile.mfa_enabled}
+            />
 
-              {person.profile.global_role === 'pocket' && (
-                <AssignmentInd color="secondary" />
-              )}
-
-              {person.profile.global_role === 'vip' && (
-                <Typography>
-                  MFA status:{' '}
-                  {person.profile.mfa_enabled ? (
-                    <Typography
-                      component="span"
-                      variant="button"
-                      color="success"
-                    >
-                      ENABLED
-                    </Typography>
-                  ) : (
-                    <Typography component="span" color="secondary">
-                      DISABLED
-                    </Typography>
-                  )}
-                </Typography>
-              )}
-
-              {person.profile.global_role === 'pocket' && (
-                <Typography>Pocket account</Typography>
-              )}
-            </Box>
-            <Stack spacing="4px">
-              <Typography variant="subtitle2" textAlign="right">
-                Created at:{' '}
-                {new Date(person.profile.createdAt).toLocaleString()}
-              </Typography>
-
-              {last_seen && (
-                <Typography variant="subtitle2" textAlign="right">
-                  Last seen at: {last_seen}
-                </Typography>
-              )}
-            </Stack>
+            <Activity
+              createdAt={person.profile.createdAt}
+              last_seen={last_seen}
+            />
           </Box>
 
           <Divider />
 
-          <Typography>Personal information</Typography>
-          <Grid container spacing={2}>
-            <Grid size={{ xs: 12, md: 12, lg: 5 }}>
-              <TextField
-                fullWidth
-                label="Last name"
-                size="small"
-                value={lastname}
-              />
-            </Grid>
-            <Grid size={{ xs: 12, md: 6, lg: 3.5 }}>
-              <TextField
-                fullWidth
-                label="First name"
-                size="small"
-                value={firstname}
-              />
-            </Grid>
-            <Grid size={{ xs: 12, md: 6, lg: 3.5 }}>
-              <TextField fullWidth label="Email" size="small" value={email} />
-            </Grid>
-          </Grid>
+          <BasicInfo
+            person={person}
+            firstnameRef={firstnameRef}
+            lastnameRef={lastnameRef}
+            emailRef={emailRef}
+          />
 
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <Button variant="contained" startIcon={<Save />}>
-              Update
-            </Button>
-            <Button variant="contained" color="secondary" startIcon={<Token />}>
-              Revoke token
-            </Button>
-            <Button
-              variant="contained"
-              color="warning"
-              onClick={onDisableMFA}
-              startIcon={<NoEncryptionGmailerrorred />}
-            >
-              Disable MFA
-            </Button>
-            <Button
-              variant="contained"
-              color="error"
-              onClick={onDelete}
-              startIcon={<Delete />}
-            >
-              Delete
-            </Button>
-          </Box>
+          <Grid container spacing={{ xs: 1, md: 2 }}>
+            <UpdateBasicInfo onConfirm={handleUpdate} />
+
+            {person.profile.mfa_enabled && (
+              <>
+                <ButtonGrid color="secondary" startIcon={<Token />}>
+                  Revoke token
+                </ButtonGrid>
+
+                <ButtonGrid
+                  color="warning"
+                  onClick={onDisableMFA}
+                  startIcon={<NoEncryptionGmailerrorred />}
+                >
+                  Disable MFA
+                </ButtonGrid>
+              </>
+            )}
+
+            <DeleteUser onConfirm={onDelete} />
+          </Grid>
         </Stack>
       </AccordionDetails>
     </Accordion>
