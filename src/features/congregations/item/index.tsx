@@ -66,14 +66,16 @@ const CongregationItem = ({ congregation }: CongregationItemProps) => {
                   </>
                 )}
 
-                {persons.map((person) => (
-                  <UserItem
-                    key={person.id}
-                    person={person}
-                    onDisableMFA={() => handleDisableMFA(person.id)}
-                    onDelete={() => handleDeleteUser(person.id)}
-                  />
-                ))}
+                <Box>
+                  {persons.map((person) => (
+                    <UserItem
+                      key={person.id}
+                      person={person}
+                      onDisableMFA={() => handleDisableMFA(person.id)}
+                      onDelete={() => handleDeleteUser(person.id)}
+                    />
+                  ))}
+                </Box>
               </Box>
             )}
           </>
