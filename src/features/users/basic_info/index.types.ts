@@ -3,7 +3,7 @@ import { APICongregationPerson } from '@definition/api';
 
 export type BasicInfoProps = {
   person: APICongregationPerson;
-  firstnameRef: RefObject<HTMLInputElement>;
-  lastnameRef: RefObject<HTMLInputElement>;
-  emailRef: RefObject<HTMLInputElement>;
+  firstnameRef: RefObject<HTMLInputElement | null>;
+  lastnameRef: RefObject<HTMLInputElement | null>;
+  emailRef: RefObject<HTMLInputElement | null>;
 };

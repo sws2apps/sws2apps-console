@@ -2,9 +2,9 @@ import { useMemo, useRef } from 'react';
 import { UserItemProps } from './index.type';
 
 const useUserItem = ({ person, onUpdate }: UserItemProps) => {
-  const firstnameRef = useRef<HTMLInputElement | null>(null);
-  const lastnameRef = useRef<HTMLInputElement | null>(null);
-  const emailRef = useRef<HTMLInputElement | null>(null);
+  const firstnameRef = useRef<HTMLInputElement>(null);
+  const lastnameRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
 
   const fullname = useMemo(() => {
     const lastname = person.profile.lastname.value;
