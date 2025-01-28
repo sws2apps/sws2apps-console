@@ -1,4 +1,5 @@
-import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
+import { lazy, Suspense } from 'react';
+import { CircularProgress, createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 import { CacheProvider } from '@emotion/react';
 import { BrowserRouter, Route, Routes } from 'react-router';
 import { Provider } from 'jotai';
@@ -6,11 +7,13 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import createCache from '@emotion/cache';
 
 import { store } from '@states/app';
-import Congregations from '@pages/congregations';
+
 import Dashboard from '@pages/dashboard';
 import NavBar from '@components/navbar';
 import Notification from '@features/notification';
-import Users from '@pages/users';
+
+const Congregations = lazy(() => import('@pages/congregations'));
+const Users = lazy(() => import('@pages/users'));
 
 const cache = createCache({
   key: 'css',
@@ -42,6 +45,7 @@ const App = () => {
           <CssBaseline />
           <CacheProvider value={cache}>
             <Notification />
+            <Suspense fallback={<CircularProgress />}>
             <BrowserRouter>
               <Routes>
                 <Route element={<NavBar />}>
@@ -51,6 +55,7 @@ const App = () => {
                 </Route>
               </Routes>
             </BrowserRouter>
+            </Suspense>
           </CacheProvider>
         </ThemeProvider>
       </QueryClientProvider>
