@@ -24,15 +24,13 @@ import { IconAccount } from '@icons/index';
 import { UserItemProps } from './index.type';
 import useUserItem from './useItem';
 
-const UserItem = ({ person }: UserItemProps) => {
+const UserItem = ({ person,onDelete,onDisableMFA }: UserItemProps) => {
   const {
     fullname,
     firstname,
     lastname,
     email,
     last_seen,
-    handleDeleteUser,
-    handleDisableMFA,
   } = useUserItem(person);
 
   return (
@@ -142,7 +140,7 @@ const UserItem = ({ person }: UserItemProps) => {
             <Button
               variant="contained"
               color="warning"
-              onClick={handleDisableMFA}
+              onClick={onDisableMFA}
               startIcon={<NoEncryptionGmailerrorred />}
             >
               Disable MFA
@@ -150,7 +148,7 @@ const UserItem = ({ person }: UserItemProps) => {
             <Button
               variant="contained"
               color="error"
-              onClick={handleDeleteUser}
+              onClick={onDelete}
               startIcon={<Delete />}
             >
               Delete
