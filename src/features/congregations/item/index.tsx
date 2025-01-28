@@ -37,38 +37,46 @@ const CongregationItem = ({ congregation }: CongregationItemProps) => {
         </Box>
       </AccordionSummary>
       <AccordionDetails>
-        {isLoading && <CircularProgress />}
+        {expanded && (
+          <>
+            {isLoading && <CircularProgress />}
 
-        {!isLoading && (
-          <Box sx={{ display: 'flex', gap: '12px', flexDirection: 'column' }}>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-              <Button variant="contained">Rename</Button>
-              <Button
-                variant="contained"
-                color="error"
-                onClick={handleDeleteCongregation}
+            {!isLoading && (
+              <Box
+                sx={{ display: 'flex', gap: '12px', flexDirection: 'column' }}
               >
-                Delete
-              </Button>
-            </Box>
+                <Box
+                  sx={{ display: 'flex', alignItems: 'center', gap: '12px' }}
+                >
+                  <Button variant="contained">Rename</Button>
+                  <Button
+                    variant="contained"
+                    color="error"
+                    onClick={handleDeleteCongregation}
+                  >
+                    Delete
+                  </Button>
+                </Box>
 
-            {persons.length > 0 && (
-              <>
-                <Typography fontWeight="bold">
-                  Congregation persons ({persons.length})
-                </Typography>
-              </>
+                {persons.length > 0 && (
+                  <>
+                    <Typography fontWeight="bold">
+                      Congregation persons ({persons.length})
+                    </Typography>
+                  </>
+                )}
+
+                {persons.map((person) => (
+                  <UserItem
+                    key={person.id}
+                    person={person}
+                    onDisableMFA={() => handleDisableMFA(person.id)}
+                    onDelete={() => handleDeleteUser(person.id)}
+                  />
+                ))}
+              </Box>
             )}
-
-            {persons.map((person) => (
-              <UserItem
-                key={person.id}
-                person={person}
-                onDisableMFA={() => handleDisableMFA(person.id)}
-                onDelete={() => handleDeleteUser(person.id)}
-              />
-            ))}
-          </Box>
+          </>
         )}
       </AccordionDetails>
     </Accordion>
