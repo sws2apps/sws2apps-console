@@ -13,9 +13,14 @@ const CongregationsList = () => {
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
           <Typography>Showing {count} results</Typography>
 
-          {countriesList.map((country) => (
-            <CongregationCountry key={country.country_code} country={country} />
-          ))}
+          <Box>
+            {countriesList.map((country) => (
+              <CongregationCountry
+                key={country.country_code}
+                country={country}
+              />
+            ))}
+          </Box>
         </Box>
       )}
     </Box>
