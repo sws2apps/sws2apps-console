@@ -32,14 +32,16 @@ const NavBar = () => {
             <Typography variant="button">sws2apps Console</Typography>
           </Box>
 
-          <Button
-            variant="text"
-            color="inherit"
-            startIcon={<Logout />}
-            onClick={handleSignOut}
-          >
-            Logout
-          </Button>
+          {isUserConnected && (
+            <Button
+              variant="text"
+              color="inherit"
+              startIcon={<Logout />}
+              onClick={handleSignOut}
+            >
+              Logout
+            </Button>
+          )}
         </Toolbar>
       </AppBar>
 

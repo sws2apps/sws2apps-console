@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button, CircularProgress, Typography } from '@mui/material';
 import {
   Accordion,
   AccordionDetails,
@@ -7,9 +7,12 @@ import {
 import { IconCongregation } from '@icons/index';
 import { CongregationItemProps } from './index.type';
 import useCongregationItem from './useItem';
+import UserItem from '@features/users/item';
 
 const CongregationItem = ({ congregation }: CongregationItemProps) => {
-  const { expanded, setExpanded } = useCongregationItem();
+  const { expanded, setExpanded, isLoading, persons } = useCongregationItem(
+    congregation.id
+  );
 
   return (
     <Accordion
@@ -28,12 +31,30 @@ const CongregationItem = ({ congregation }: CongregationItemProps) => {
         </Box>
       </AccordionSummary>
       <AccordionDetails>
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <Button variant="contained">Rename</Button>
-          <Button variant="contained" color="error">
-            Delete
-          </Button>
-        </Box>
+        {isLoading && <CircularProgress />}
+
+        {!isLoading && (
+          <Box sx={{ display: 'flex', gap: '12px', flexDirection: 'column' }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <Button variant="contained">Rename</Button>
+              <Button variant="contained" color="error">
+                Delete
+              </Button>
+            </Box>
+
+            {persons.length > 0 && (
+              <>
+                <Typography fontWeight="bold">
+                  Congregation persons ({persons.length})
+                </Typography>
+              </>
+            )}
+
+            {persons.map((person) => (
+              <UserItem key={person.id} person={person} />
+            ))}
+          </Box>
+        )}
       </AccordionDetails>
     </Accordion>
   );

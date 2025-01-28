@@ -5,6 +5,7 @@ import { apiCongregationsGet } from '@services/api/congregations';
 import { apiCountriesGet } from '@services/api/countries';
 import { countriesState } from '@states/countries';
 import {
+  congregationsByCountryCountState,
   congregationsByCountryState,
   congregationsState,
 } from '@states/congregations';
@@ -23,6 +24,7 @@ const useCongregationsList = () => {
   const setCountries = useSetAtom(countriesState);
   const setCongregations = useSetAtom(congregationsState);
   const countriesList = useAtomValue(congregationsByCountryState);
+  const count = useAtomValue(congregationsByCountryCountState);
 
   const isLoading = useMemo(() => {
     return isLoadingCongregations || isLoadingCountries;
@@ -40,7 +42,7 @@ const useCongregationsList = () => {
     }
   }, [congregations, setCongregations]);
 
-  return { isLoading, countriesList };
+  return { isLoading, countriesList, count };
 };
 
 export default useCongregationsList;

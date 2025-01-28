@@ -18,10 +18,6 @@ export const apiLoginUser = async () => {
 
     const data = await res.json();
 
-    if (res.status === 403) {
-      return data as APIUserResponseType;
-    }
-
     if (res.status !== 200) {
       throw new Error(data?.message);
     }
@@ -48,6 +44,10 @@ export const apiAuthorizeUser = async () => {
     });
 
     const data = await res.json();
+
+    if (res.status === 403) {
+      return data as APIUserResponseType;
+    }
 
     if (res.status !== 200) {
       throw new Error(data?.message);

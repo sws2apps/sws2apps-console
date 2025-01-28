@@ -1,18 +1,23 @@
-import { Box, CircularProgress } from '@mui/material';
+import { Box, CircularProgress, Typography } from '@mui/material';
 import useCongregationsList from './useList';
 import CongregationCountry from '../country';
 
 const CongregationsList = () => {
-  const { countriesList, isLoading } = useCongregationsList();
+  const { countriesList, isLoading, count } = useCongregationsList();
 
   return (
     <Box>
       {isLoading && <CircularProgress />}
 
-      {!isLoading &&
-        countriesList.map((country) => (
-          <CongregationCountry key={country.country_code} country={country} />
-        ))}
+      {!isLoading && (
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <Typography>Showing {count} results</Typography>
+
+          {countriesList.map((country) => (
+            <CongregationCountry key={country.country_code} country={country} />
+          ))}
+        </Box>
+      )}
     </Box>
   );
 };
