@@ -1,6 +1,8 @@
+import { Suspense } from 'react';
 import { Outlet } from 'react-router';
 import {
   Box,
+  CircularProgress,
   Drawer,
   ListItem,
   ListItemButton,
@@ -49,7 +51,9 @@ const Layout = () => {
             overflow: 'auto',
           }}
         >
+          <Suspense fallback={<CircularProgress />}>
           <Outlet />
+          </Suspense>
         </Box>
       </Box>
     </Box>

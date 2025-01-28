@@ -1,5 +1,5 @@
-import { lazy, Suspense } from 'react';
-import { CircularProgress, createTheme, CssBaseline, ThemeProvider } from '@mui/material';
+import { lazy } from 'react';
+import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 import { CacheProvider } from '@emotion/react';
 import { BrowserRouter, Route, Routes } from 'react-router';
 import { Provider } from 'jotai';
@@ -45,7 +45,7 @@ const App = () => {
           <CssBaseline />
           <CacheProvider value={cache}>
             <Notification />
-            <Suspense fallback={<CircularProgress />}>
+
             <BrowserRouter>
               <Routes>
                 <Route element={<NavBar />}>
@@ -55,7 +55,6 @@ const App = () => {
                 </Route>
               </Routes>
             </BrowserRouter>
-            </Suspense>
           </CacheProvider>
         </ThemeProvider>
       </QueryClientProvider>
