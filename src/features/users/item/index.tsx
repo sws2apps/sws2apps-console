@@ -8,6 +8,7 @@ import {
   Typography,
 } from '@mui/material';
 import {
+  AssignmentInd,
   Delete,
   NoEncryptionGmailerrorred,
   Save,
@@ -24,8 +25,15 @@ import { UserItemProps } from './index.type';
 import useUserItem from './useItem';
 
 const UserItem = ({ person }: UserItemProps) => {
-  const { fullname, firstname, lastname, email, last_seen } =
-    useUserItem(person);
+  const {
+    fullname,
+    firstname,
+    lastname,
+    email,
+    last_seen,
+    handleDeleteUser,
+    handleDisableMFA,
+  } = useUserItem(person);
 
   return (
     <Accordion>
@@ -57,18 +65,33 @@ const UserItem = ({ person }: UserItemProps) => {
               {person.profile.global_role === 'vip' && (
                 <Shield color="warning" />
               )}
-              <Typography>
-                MFA status:{' '}
-                {person.profile.mfa_enabled ? (
-                  <Typography component="span" variant="button" color="success">
-                    ENABLED
-                  </Typography>
-                ) : (
-                  <Typography component="span" color="secondary">
-                    DISABLED
-                  </Typography>
-                )}
-              </Typography>
+
+              {person.profile.global_role === 'pocket' && (
+                <AssignmentInd color="secondary" />
+              )}
+
+              {person.profile.global_role === 'vip' && (
+                <Typography>
+                  MFA status:{' '}
+                  {person.profile.mfa_enabled ? (
+                    <Typography
+                      component="span"
+                      variant="button"
+                      color="success"
+                    >
+                      ENABLED
+                    </Typography>
+                  ) : (
+                    <Typography component="span" color="secondary">
+                      DISABLED
+                    </Typography>
+                  )}
+                </Typography>
+              )}
+
+              {person.profile.global_role === 'pocket' && (
+                <Typography>Pocket account</Typography>
+              )}
             </Box>
             <Stack spacing="4px">
               <Typography variant="subtitle2" textAlign="right">
@@ -119,11 +142,17 @@ const UserItem = ({ person }: UserItemProps) => {
             <Button
               variant="contained"
               color="warning"
+              onClick={handleDisableMFA}
               startIcon={<NoEncryptionGmailerrorred />}
             >
               Disable MFA
             </Button>
-            <Button variant="contained" color="error" startIcon={<Delete />}>
+            <Button
+              variant="contained"
+              color="error"
+              onClick={handleDeleteUser}
+              startIcon={<Delete />}
+            >
               Delete
             </Button>
           </Box>

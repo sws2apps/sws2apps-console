@@ -5,11 +5,17 @@ import {
   AccordionSummary,
 } from '@components/accordion';
 import { CongregationCountryProps } from './index.type';
+import useCongregationCountry from './useCountry';
 import CongregationItem from '../item';
 
 const CongregationCountry = ({ country }: CongregationCountryProps) => {
+  const { expanded, setExpanded } = useCongregationCountry();
+
   return (
-    <Accordion>
+    <Accordion
+      expanded={expanded}
+      onChange={(_, expanded) => setExpanded(expanded)}
+    >
       <AccordionSummary
         aria-controls={`panel-${country.country_code}-content"`}
         id={`panel-${country.country_code}-header"`}
@@ -20,7 +26,7 @@ const CongregationCountry = ({ country }: CongregationCountryProps) => {
         </Typography>
       </AccordionSummary>
       <AccordionDetails>
-        {country.congregations.map((congregation) => (
+        {expanded && country.congregations.map((congregation) => (
           <CongregationItem key={congregation.id} congregation={congregation} />
         ))}
       </AccordionDetails>

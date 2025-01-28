@@ -10,7 +10,7 @@ import useCongregationItem from './useItem';
 import UserItem from '@features/users/item';
 
 const CongregationItem = ({ congregation }: CongregationItemProps) => {
-  const { expanded, setExpanded, isLoading, persons } = useCongregationItem(
+  const { expanded, setExpanded, isLoading, persons,handleDeleteCongregation } = useCongregationItem(
     congregation.id
   );
 
@@ -37,7 +37,7 @@ const CongregationItem = ({ congregation }: CongregationItemProps) => {
           <Box sx={{ display: 'flex', gap: '12px', flexDirection: 'column' }}>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
               <Button variant="contained">Rename</Button>
-              <Button variant="contained" color="error">
+              <Button variant="contained" color="error" onClick={handleDeleteCongregation}>
                 Delete
               </Button>
             </Box>

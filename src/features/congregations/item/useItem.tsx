@@ -1,8 +1,16 @@
 import { useEffect, useState } from 'react';
-import { useAtom } from 'jotai';
+import { useAtom, useSetAtom } from 'jotai';
 import { useQuery } from '@tanstack/react-query';
-import { apiCongregationPersonsGet } from '@services/api/congregations';
-import { congregationPersonsState } from '@states/congregations';
+import {
+  apiCongregationDelete,
+  apiCongregationPersonsGet,
+  apiCongregationsGet,
+} from '@services/api/congregations';
+import {
+  congregationPersonsState,
+  congregationsState,
+} from '@states/congregations';
+import { showNotification } from '@services/app/notification';
 
 const useCongregationItem = (id: string) => {
   const [expanded, setExpanded] = useState(false);
@@ -15,7 +23,24 @@ const useCongregationItem = (id: string) => {
 
   const [persons, setPersons] = useAtom(congregationPersonsState);
 
+  const setCongregations = useSetAtom(congregationsState);
+
+  const handleDeleteCongregation = async () => {
+    try {
+      await apiCongregationDelete(id);
+
+      const congregations = await apiCongregationsGet();
+      setCongregations(congregations);
+    } catch (error) {
+      console.error(error);
+
+      showNotification((error as Error).message, 'error');
+    }
+  };
+
   useEffect(() => {
+    setPersons([]);
+
     if (congUsers && Array.isArray(congUsers)) {
       setPersons(
         congUsers.sort((a, b) =>
@@ -25,7 +50,13 @@ const useCongregationItem = (id: string) => {
     }
   }, [congUsers, setPersons]);
 
-  return { expanded, setExpanded, isLoading, persons };
+  return {
+    expanded,
+    setExpanded,
+    isLoading,
+    persons,
+    handleDeleteCongregation,
+  };
 };
 
 export default useCongregationItem;
