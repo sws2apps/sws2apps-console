@@ -15,7 +15,7 @@ import {
   apiUserDisableMFA,
   apiUserUpdate,
 } from '@services/api/users';
-import { APICongregationPerson } from '@definition/api';
+import { APIUser } from '@definition/api';
 
 const useCongregationItem = (id: string) => {
   const [expanded, setExpanded] = useState(false);
@@ -31,7 +31,7 @@ const useCongregationItem = (id: string) => {
 
   const [isProcessing, setIsProcessing] = useAtom(congregationBusyState);
 
-  const [persons, setPersons] = useState<APICongregationPerson[]>([]);
+  const [persons, setPersons] = useState<APIUser[]>([]);
 
   const handleDeleteCongregation = async () => {
     if (isProcessing) return;

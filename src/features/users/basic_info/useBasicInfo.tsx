@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { APICongregationPerson } from '@definition/api';
+import { APIUser } from '@definition/api';
 
-const useBasicInfo = (person: APICongregationPerson) => {
+const useBasicInfo = (person: APIUser) => {
   const [firstname, setFirstname] = useState(person.profile.firstname.value);
   const [lastname, setLastname] = useState(person.profile.lastname.value);
   const [email, setEmail] = useState(person.profile.email || '');

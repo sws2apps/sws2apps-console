@@ -39,7 +39,7 @@ export type APIUserSession = {
   last_seen: string;
 };
 
-export type APICongregationPerson = {
+export type APIUser = {
   id: string;
   profile: APIUserProfile;
   sessions: APIUserSession[];

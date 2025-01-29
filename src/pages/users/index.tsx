@@ -1,10 +1,13 @@
-import { Box, Typography } from '@mui/material';
+import { Stack } from '@mui/material';
+import UserSearch from '@features/users/search';
+import UsersList from '@features/users/list';
 
 const Users = () => {
   return (
-    <Box>
-      <Typography>Users</Typography>
-    </Box>
+    <Stack spacing="24px">
+      <UserSearch />
+      <UsersList />
+    </Stack>
   );
 };
 

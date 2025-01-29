@@ -1,7 +1,7 @@
-import { APICongregationPerson } from '@definition/api';
+import { APIUser } from '@definition/api';
 
 export type UserItemProps = {
-  person: APICongregationPerson;
+  person: APIUser;
   onDelete: VoidFunction;
   onDisableMFA: VoidFunction;
   onUpdate: (lastname: string, firstname: string, email: string) => void;

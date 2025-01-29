@@ -1,8 +1,8 @@
 import { RefObject } from 'react';
-import { APICongregationPerson } from '@definition/api';
+import { APIUser } from '@definition/api';
 
 export type BasicInfoProps = {
-  person: APICongregationPerson;
+  person: APIUser;
   firstnameRef: RefObject<HTMLInputElement | null>;
   lastnameRef: RefObject<HTMLInputElement | null>;
   emailRef: RefObject<HTMLInputElement | null>;

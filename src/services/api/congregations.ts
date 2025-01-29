@@ -1,4 +1,4 @@
-import { APICongregation, APICongregationPerson } from '@definition/api';
+import { APICongregation, APIUser } from '@definition/api';
 import { apiDefault } from './common';
 
 export const apiCongregationsGet = async () => {
@@ -52,7 +52,7 @@ export const apiCongregationPersonsGet = async (id: string) => {
       throw new Error(data?.message);
     }
 
-    return data as APICongregationPerson[];
+    return data as APIUser[];
   } catch (error) {
     throw new Error((error as Error).message);
   }
