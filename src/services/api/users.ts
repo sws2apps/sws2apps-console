@@ -75,6 +75,8 @@ export const apiUserDisableMFA = async (id: string) => {
     if (res.status !== 200) {
       throw new Error(data?.message);
     }
+
+    return data as APIUser[];
   } catch (error) {
     throw new Error((error as Error).message);
   }

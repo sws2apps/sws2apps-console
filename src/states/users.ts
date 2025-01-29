@@ -1,6 +1,8 @@
 import { atom } from 'jotai';
 import { APIUser } from '@definition/api';
 
+export const userBusyState = atom(false);
+
 export const userSearchState = atom('');
 
 export const usersState = atom<APIUser[]>([]);
