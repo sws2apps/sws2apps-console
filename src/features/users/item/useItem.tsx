@@ -1,10 +1,12 @@
-import { useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { UserItemProps } from './index.type';
 
 const useUserItem = ({ person, onUpdate }: UserItemProps) => {
   const firstnameRef = useRef<HTMLInputElement>(null);
   const lastnameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
+
+  const [roles, setRoles] = useState(person.profile.cong_role)
 
   const fullname = useMemo(() => {
     const lastname = person.profile.lastname.value;
@@ -36,6 +38,10 @@ const useUserItem = ({ person, onUpdate }: UserItemProps) => {
     onUpdate(lastname, firstname, email);
   };
 
+  useEffect(() => {
+    setRoles(person.profile.cong_role)
+  }, [person])
+
   return {
     fullname,
     last_seen,
@@ -43,6 +49,7 @@ const useUserItem = ({ person, onUpdate }: UserItemProps) => {
     lastnameRef,
     emailRef,
     handleUpdate,
+    roles
   };
 };
 

@@ -1,3 +1,4 @@
+import { CongRole } from './congregation';
 import { GlobalRole } from './user';
 
 export type APIUserResponseType = {
@@ -23,7 +24,7 @@ export type APIUserProfile = {
   global_role: GlobalRole;
   firstname: { value: string; updatedAt: string };
   lastname: { value: string; updatedAt: string };
-  cong_role: string[];
+  cong_role: CongRole[];
   user_local_uid: string;
   user_members_delegate: string[];
   email?: string;

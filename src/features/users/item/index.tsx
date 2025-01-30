@@ -1,4 +1,4 @@
-import { Box, Divider, Grid2 as Grid, Stack } from '@mui/material';
+import { Box, Divider, Grid2 as Grid, Stack, Typography } from '@mui/material';
 import { NoEncryptionGmailerrorred, Token } from '@mui/icons-material';
 import {
   Accordion,
@@ -14,6 +14,7 @@ import DeleteUser from '../delete_user';
 import Label from '../label';
 import MFAStatus from '../mfa_status';
 import UpdateBasicInfo from '../update_ basic_info';
+import CongRoles from '../cong_roles';
 
 const UserItem = (props: UserItemProps) => {
   const { person, onDelete, onDisableMFA } = props;
@@ -25,6 +26,7 @@ const UserItem = (props: UserItemProps) => {
     emailRef,
     lastnameRef,
     handleUpdate,
+    roles,
   } = useUserItem(props);
 
   return (
@@ -57,12 +59,20 @@ const UserItem = (props: UserItemProps) => {
 
           <Divider />
 
+          <Typography>Basic information</Typography>
+
           <BasicInfo
             person={person}
             firstnameRef={firstnameRef}
             lastnameRef={lastnameRef}
             emailRef={emailRef}
           />
+
+          <Divider />
+
+          <Typography>Congregation Roles</Typography>
+
+          <CongRoles roles={roles} />
 
           <Grid container spacing={{ xs: 1, md: 2 }}>
             <UpdateBasicInfo onConfirm={handleUpdate} />
