@@ -6,7 +6,7 @@ const useUserItem = ({ person, onUpdate }: UserItemProps) => {
   const lastnameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
 
-  const [expanded, isExpanded] = useState(false);
+  const [expanded, setExpanded] = useState(false);
   const [roles, setRoles] = useState(person.profile.congregation?.cong_role || []);
 
   const fullname = useMemo(() => {
