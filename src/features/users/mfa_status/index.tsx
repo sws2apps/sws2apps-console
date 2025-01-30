@@ -11,7 +11,7 @@ const MFAStatus = ({ mfa_enabled, role }: MFAStatusProps) => {
         gap: '4px',
       }}
     >
-      {role === 'vip' && (
+      {role !== 'pocket' && (
         <>
           <Circle color={mfa_enabled ? 'success' : 'warning'} />
           <Typography>
