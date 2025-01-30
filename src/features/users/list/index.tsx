@@ -1,16 +1,9 @@
 import { Box, CircularProgress, Typography } from '@mui/material';
 import useUsersList from './useList';
-import UserItem from '../item';
+import GlobalRole from '../global_role';
 
 const UsersList = () => {
-  const {
-    isLoading,
-    count,
-    users,
-    handleDeleteUser,
-    handleDisableMFA,
-    handleUpdateUserBasic,
-  } = useUsersList();
+  const { isLoading, count, usersByRole } = useUsersList();
 
   return (
     <Box>
@@ -21,21 +14,8 @@ const UsersList = () => {
           <Typography>USERS: {count}</Typography>
 
           <Box>
-            {users.map((person) => (
-              <UserItem
-                key={person.id}
-                person={person}
-                onDisableMFA={() => handleDisableMFA(person.id)}
-                onDelete={() => handleDeleteUser(person.id)}
-                onUpdate={(lastname, firstname, email) =>
-                  handleUpdateUserBasic({
-                    userId: person.id,
-                    email,
-                    firstname,
-                    lastname,
-                  })
-                }
-              />
+            {usersByRole.map((group) => (
+              <GlobalRole key={group.global_role} group={group} />
             ))}
           </Box>
         </Box>
