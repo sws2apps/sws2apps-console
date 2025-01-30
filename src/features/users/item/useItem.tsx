@@ -6,7 +6,9 @@ const useUserItem = ({ person, onUpdate }: UserItemProps) => {
   const lastnameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
 
-  const [roles, setRoles] = useState(person.profile.cong_role)
+  const [roles, setRoles] = useState(
+    person.profile.congregation?.cong_role || []
+  );
 
   const fullname = useMemo(() => {
     const lastname = person.profile.lastname.value;
@@ -39,8 +41,8 @@ const useUserItem = ({ person, onUpdate }: UserItemProps) => {
   };
 
   useEffect(() => {
-    setRoles(person.profile.cong_role)
-  }, [person])
+    setRoles(person.profile.congregation?.cong_role || []);
+  }, [person]);
 
   return {
     fullname,
@@ -49,7 +51,7 @@ const useUserItem = ({ person, onUpdate }: UserItemProps) => {
     lastnameRef,
     emailRef,
     handleUpdate,
-    roles
+    roles,
   };
 };
 

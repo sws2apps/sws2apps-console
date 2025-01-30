@@ -70,9 +70,12 @@ const UserItem = (props: UserItemProps) => {
 
           <Divider />
 
-          <Typography>Congregation Roles</Typography>
-
-          <CongRoles roles={roles} />
+          {person.profile.global_role !== 'admin' && (
+            <>
+              <Typography>Congregation Roles</Typography>
+              <CongRoles roles={roles} />
+            </>
+          )}
 
           <Grid container spacing={{ xs: 1, md: 2 }}>
             <UpdateBasicInfo onConfirm={handleUpdate} />
