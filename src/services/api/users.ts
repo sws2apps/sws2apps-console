@@ -1,5 +1,6 @@
 import { APIUser } from '@definition/api';
 import { apiDefault } from './common';
+import { CongRole } from '@definition/congregation';
 
 export const apiUsersGet = async () => {
   try {
@@ -87,11 +88,13 @@ export const apiUserUpdate = async ({
   firstname,
   id,
   lastname,
+  roles,
 }: {
   id: string;
   lastname: string;
   firstname: string;
   email: string;
+  roles: CongRole[];
 }) => {
   try {
     const { apiHost, appversion, idToken } = await apiDefault();
@@ -105,7 +108,7 @@ export const apiUserUpdate = async ({
         appclient: 'admin',
         appversion,
       },
-      body: JSON.stringify({ email, firstname, lastname }),
+      body: JSON.stringify({ email, firstname, lastname, roles }),
     });
 
     const data = await res.json();

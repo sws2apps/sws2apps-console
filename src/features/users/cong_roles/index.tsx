@@ -8,57 +8,95 @@ import {
 } from '@mui/material';
 import { CongRolesProps } from './index.types';
 
-const CongRoles = ({ roles }: CongRolesProps) => {
+const CongRoles = ({ roles, onChange }: CongRolesProps) => {
   return (
     <Stack spacing="12px">
       <Grid container spacing={{ xs: 1, md: 2 }}>
         <Grid size={{ xs: 12, md: 6 }}>
           <FormGroup>
             <FormControlLabel
-              control={<Checkbox checked={roles.includes('admin')} />}
               label="Administrator"
-            />
-            <FormControlLabel
-              control={<Checkbox checked={roles.includes('coordinator')} />}
-              label="Coordinator"
-            />
-            <FormControlLabel
-              control={<Checkbox checked={roles.includes('secretary')} />}
-              label="Secretary"
-            />
-            <FormControlLabel
               control={
-                <Checkbox checked={roles.includes('service_overseer')} />
+                <Checkbox
+                  checked={roles.includes('admin')}
+                  onChange={(e) => onChange('admin', e.target.checked)}
+                />
               }
+            />
+            <FormControlLabel
+              label="Coordinator"
+              control={
+                <Checkbox
+                  checked={roles.includes('coordinator')}
+                  onChange={(e) => onChange('coordinator', e.target.checked)}
+                />
+              }
+            />
+            <FormControlLabel
+              label="Secretary"
+              control={
+                <Checkbox
+                  checked={roles.includes('secretary')}
+                  onChange={(e) => onChange('secretary', e.target.checked)}
+                />
+              }
+            />
+            <FormControlLabel
               label="Service Overseer"
+              control={
+                <Checkbox
+                  checked={roles.includes('service_overseer')}
+                  onChange={(e) => onChange('secretary', e.target.checked)}
+                />
+              }
             />
           </FormGroup>
         </Grid>
         <Grid size={{ xs: 12, md: 6 }}>
           <FormGroup>
             <FormControlLabel
+              label="Midweek Meeting Scheduling"
               control={
-                <Checkbox checked={roles.includes('midweek_schedule')} />
+                <Checkbox
+                  checked={roles.includes('midweek_schedule')}
+                  onChange={(e) =>
+                    onChange('midweek_schedule', e.target.checked)
+                  }
+                />
               }
-              label="Midweek meeting scheduling"
             />
             <FormControlLabel
+              label="Weekend Meeting Schedling"
               control={
-                <Checkbox checked={roles.includes('weekend_schedule')} />
+                <Checkbox
+                  checked={roles.includes('weekend_schedule')}
+                  onChange={(e) =>
+                    onChange('weekend_schedule', e.target.checked)
+                  }
+                />
               }
-              label="Weekend meeting schedling"
             />
             <FormControlLabel
+              label="Public Talk Scheduling"
               control={
-                <Checkbox checked={roles.includes('public_talk_schedule')} />
+                <Checkbox
+                  checked={roles.includes('public_talk_schedule')}
+                  onChange={(e) =>
+                    onChange('public_talk_schedule', e.target.checked)
+                  }
+                />
               }
-              label="Public talk scheduling"
             />
             <FormControlLabel
+              label="Attendance Record Tracking"
               control={
-                <Checkbox checked={roles.includes('attendance_tracking')} />
+                <Checkbox
+                  checked={roles.includes('attendance_tracking')}
+                  onChange={(e) =>
+                    onChange('attendance_tracking', e.target.checked)
+                  }
+                />
               }
-              label="Attendance record tracking"
             />
           </FormGroup>
         </Grid>
@@ -68,29 +106,29 @@ const CongRoles = ({ roles }: CongRolesProps) => {
       </Typography>
       <FormGroup>
         <FormControlLabel
+          label="Elder"
           control={
             <Checkbox readOnly={true} checked={roles.includes('elder')} />
           }
-          label="Elder"
         />
         <FormControlLabel
-          control={<Checkbox readOnly={true} checked={roles.includes('ms')} />}
           label="Ministerial Servant"
+          control={<Checkbox readOnly={true} checked={roles.includes('ms')} />}
         />
         <FormControlLabel
+          label="Publisher"
           control={
             <Checkbox readOnly={true} checked={roles.includes('publisher')} />
           }
-          label="Publisher"
         />
         <FormControlLabel
+          label="View Schedules"
           control={
             <Checkbox
               readOnly={true}
               checked={roles.includes('view_schedules')}
             />
           }
-          label="View Schedules"
         />
       </FormGroup>
     </Stack>

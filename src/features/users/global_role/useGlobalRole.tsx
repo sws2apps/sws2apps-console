@@ -9,6 +9,7 @@ import {
 } from '@services/api/users';
 import { userBusyState, usersFilteredState, usersState } from '@states/users';
 import { showNotification } from '@services/app/notification';
+import { CongRole } from '@definition/congregation';
 
 const useGlobalRole = () => {
   const [isProcessing, setIsProcessing] = useAtom(userBusyState);
@@ -60,11 +61,13 @@ const useGlobalRole = () => {
     firstname,
     lastname,
     userId,
+    roles,
   }: {
     userId: string;
     lastname: string;
     firstname: string;
     email: string;
+    roles: CongRole[];
   }) => {
     if (isProcessing) return;
 
@@ -76,11 +79,17 @@ const useGlobalRole = () => {
       const remoteLastname = remote.profile.lastname.value;
       const remoteFirstname = remote.profile.firstname.value;
       const remoteEmail = remote.profile?.email || '';
+      const remoteRoles = remote.profile.congregation?.cong_role || [];
+
+      const roleUpdate =
+        roles.length === remoteRoles.length &&
+        roles.every((record) => remoteRoles.some((role) => role === record));
 
       if (
         remoteLastname === lastname &&
         remoteFirstname === firstname &&
-        remoteEmail === email
+        remoteEmail === email &&
+        roleUpdate
       ) {
         showNotification('Nothing to update', 'info');
 
@@ -93,7 +102,9 @@ const useGlobalRole = () => {
         email,
         firstname,
         lastname,
+        roles,
       });
+
       setUsers(data);
 
       setIsProcessing(false);

@@ -38,6 +38,7 @@ const UserItem = (props: UserItemProps) => {
     expanded,
     setExpanded,
     congregation,
+    handleUpdateRole,
   } = useUserItem(props);
 
   return (
@@ -95,7 +96,10 @@ const UserItem = (props: UserItemProps) => {
                 <Typography variant="button" fontWeight="bold">
                   Congregation Roles
                 </Typography>
-                <CongRoles roles={roles} />
+                <CongRoles
+                  roles={roles}
+                  onChange={(role, checked) => handleUpdateRole(role, checked)}
+                />
               </>
             )}
 

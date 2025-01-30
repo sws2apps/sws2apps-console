@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useLocation } from 'react-router';
 import { UserItemProps } from './index.type';
+import { CongRole } from '@definition/congregation';
 
 const useUserItem = ({ person, onUpdate }: UserItemProps) => {
   const location = useLocation();
@@ -50,12 +51,33 @@ const useUserItem = ({ person, onUpdate }: UserItemProps) => {
     return `${country}-${number} ${name}`;
   }, [location, person]);
 
+  const handleUpdateRole = (role: CongRole, checked: boolean) => {
+    const findRole = roles.find((record) => record === role);
+
+    if (checked) {
+      if (!findRole) {
+        setRoles((prev) => {
+          const data = structuredClone(prev);
+          data.push(role);
+          return data;
+        });
+      }
+    }
+
+    if (!checked && findRole) {
+      setRoles((prev) => {
+        const data = prev.filter((record) => record !== role);
+        return data;
+      });
+    }
+  };
+
   const handleUpdate = () => {
     const firstname = firstnameRef.current?.value || '';
     const lastname = lastnameRef.current?.value || '';
     const email = emailRef.current?.value || '';
 
-    onUpdate(lastname, firstname, email);
+    onUpdate(lastname, firstname, email, roles);
   };
 
   useEffect(() => {
@@ -73,6 +95,7 @@ const useUserItem = ({ person, onUpdate }: UserItemProps) => {
     expanded,
     setExpanded,
     congregation,
+    handleUpdateRole,
   };
 };
 

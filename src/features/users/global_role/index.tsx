@@ -40,12 +40,13 @@ const GlobalRole = ({ group }: GlobalRoleProps) => {
               person={person}
               onDisableMFA={() => handleDisableMFA(person.id)}
               onDelete={() => handleDeleteUser(person.id)}
-              onUpdate={(lastname, firstname, email) =>
+              onUpdate={(lastname, firstname, email, roles) =>
                 handleUpdateUserBasic({
                   userId: person.id,
                   email,
                   firstname,
                   lastname,
+                  roles,
                 })
               }
               onTerminateSession={(identifier) =>

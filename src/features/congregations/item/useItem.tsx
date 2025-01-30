@@ -12,10 +12,13 @@ import {
 import { showNotification } from '@services/app/notification';
 import {
   apiUserDelete,
+  apiUserDeleteSession,
+  apiUserDeleteSessions,
   apiUserDisableMFA,
   apiUserUpdate,
 } from '@services/api/users';
 import { APIUser } from '@definition/api';
+import { CongRole } from '@definition/congregation';
 
 const useCongregationItem = (id: string) => {
   const [expanded, setExpanded] = useState(false);
@@ -91,16 +94,58 @@ const useCongregationItem = (id: string) => {
     }
   };
 
+  const handleTerminateAllSessions = async (userId: string) => {
+    if (isProcessing) return;
+
+    try {
+      setIsProcessing(true);
+
+      await apiUserDeleteSessions(userId);
+
+      const persons = await apiCongregationPersonsGet(id);
+      setPersons(persons);
+
+      setIsProcessing(false);
+    } catch (error) {
+      setIsProcessing(false);
+
+      console.error(error);
+      showNotification((error as Error).message, 'error');
+    }
+  };
+
+  const handleTerminateSession = async (userId: string, identifier: string) => {
+    if (isProcessing) return;
+
+    try {
+      setIsProcessing(true);
+
+      await apiUserDeleteSession(userId, identifier);
+
+      const persons = await apiCongregationPersonsGet(id);
+      setPersons(persons);
+
+      setIsProcessing(false);
+    } catch (error) {
+      setIsProcessing(false);
+
+      console.error(error);
+      showNotification((error as Error).message, 'error');
+    }
+  };
+
   const handleUpdateUserBasic = async ({
     email,
     firstname,
     lastname,
     userId,
+    roles,
   }: {
     userId: string;
     lastname: string;
     firstname: string;
     email: string;
+    roles: CongRole[];
   }) => {
     if (isProcessing) return;
 
@@ -112,11 +157,17 @@ const useCongregationItem = (id: string) => {
       const remoteLastname = remote.profile.lastname.value;
       const remoteFirstname = remote.profile.firstname.value;
       const remoteEmail = remote.profile?.email || '';
+      const remoteRoles = remote.profile.congregation?.cong_role || [];
+
+      const roleUpdate =
+        roles.length === remoteRoles.length &&
+        roles.every((record) => remoteRoles.some((role) => role === record));
 
       if (
         remoteLastname === lastname &&
         remoteFirstname === firstname &&
-        remoteEmail === email
+        remoteEmail === email &&
+        roleUpdate
       ) {
         showNotification('Nothing to update', 'info');
 
@@ -124,7 +175,7 @@ const useCongregationItem = (id: string) => {
         return;
       }
 
-      await apiUserUpdate({ id: userId, email, firstname, lastname });
+      await apiUserUpdate({ id: userId, email, firstname, lastname, roles });
 
       const personsNew = await apiCongregationPersonsGet(id);
       setPersons(personsNew);
@@ -160,6 +211,8 @@ const useCongregationItem = (id: string) => {
     handleDisableMFA,
     handleUpdateUserBasic,
     isProcessing,
+    handleTerminateAllSessions,
+    handleTerminateSession,
   };
 };
 

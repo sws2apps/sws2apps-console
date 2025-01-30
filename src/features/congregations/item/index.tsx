@@ -21,6 +21,8 @@ const CongregationItem = ({ congregation }: CongregationItemProps) => {
     handleDisableMFA,
     handleUpdateUserBasic,
     isProcessing,
+    handleTerminateAllSessions,
+    handleTerminateSession,
   } = useCongregationItem(congregation.id);
 
   return (
@@ -80,13 +82,20 @@ const CongregationItem = ({ congregation }: CongregationItemProps) => {
                       person={person}
                       onDisableMFA={() => handleDisableMFA(person.id)}
                       onDelete={() => handleDeleteUser(person.id)}
-                      onUpdate={(lastname, firstname, email) =>
+                      onUpdate={(lastname, firstname, email, roles) =>
                         handleUpdateUserBasic({
                           userId: person.id,
                           email,
                           firstname,
                           lastname,
+                          roles,
                         })
+                      }
+                      onTerminateSession={(identifier) =>
+                        handleTerminateSession(person.id, identifier)
+                      }
+                      onTerminateSessions={() =>
+                        handleTerminateAllSessions(person.id)
                       }
                     />
                   ))}
