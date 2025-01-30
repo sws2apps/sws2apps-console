@@ -52,7 +52,6 @@ export const usersByRoleState = atom((get) => {
     if (!role) {
       acc.push({
         global_role: current.profile.global_role,
-        role_name: 
         users: [current],
       });
     }
