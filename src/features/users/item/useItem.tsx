@@ -6,9 +6,8 @@ const useUserItem = ({ person, onUpdate }: UserItemProps) => {
   const lastnameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
 
-  const [roles, setRoles] = useState(
-    person.profile.congregation?.cong_role || []
-  );
+  const [expanded, isExpanded] = useState(false);
+  const [roles, setRoles] = useState(person.profile.congregation?.cong_role || []);
 
   const fullname = useMemo(() => {
     const lastname = person.profile.lastname.value;
@@ -22,9 +21,7 @@ const useUserItem = ({ person, onUpdate }: UserItemProps) => {
   }, [person]);
 
   const last_seen = useMemo(() => {
-    const sessions = person.sessions.sort((a, b) =>
-      b.last_seen.localeCompare(a.last_seen)
-    );
+    const sessions = person.sessions.sort((a, b) => b.last_seen.localeCompare(a.last_seen));
     const recent = sessions.at(0)?.last_seen;
 
     if (!recent) return;
@@ -52,6 +49,8 @@ const useUserItem = ({ person, onUpdate }: UserItemProps) => {
     emailRef,
     handleUpdate,
     roles,
+    expanded,
+    setExpanded,
   };
 };
 
