@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import {
   apiUserDelete,
+  apiUserDeleteSession,
+  apiUserDeleteSessions,
   apiUserDisableMFA,
   apiUserUpdate,
 } from '@services/api/users';
@@ -103,12 +105,50 @@ const useGlobalRole = () => {
     }
   };
 
+  const handleTerminateAllSessions = async (userId: string) => {
+    if (isProcessing) return;
+
+    try {
+      setIsProcessing(true);
+
+      const users = await apiUserDeleteSessions(userId);
+      setUsers(users);
+
+      setIsProcessing(false);
+    } catch (error) {
+      setIsProcessing(false);
+
+      console.error(error);
+      showNotification((error as Error).message, 'error');
+    }
+  };
+
+  const handleTerminateSession = async (userId: string, identifier: string) => {
+    if (isProcessing) return;
+
+    try {
+      setIsProcessing(true);
+
+      const users = await apiUserDeleteSession(userId, identifier);
+      setUsers(users);
+
+      setIsProcessing(false);
+    } catch (error) {
+      setIsProcessing(false);
+
+      console.error(error);
+      showNotification((error as Error).message, 'error');
+    }
+  };
+
   return {
     expanded,
     setExpanded,
     handleDeleteUser,
     handleDisableMFA,
     handleUpdateUserBasic,
+    handleTerminateSession,
+    handleTerminateAllSessions,
   };
 };
 

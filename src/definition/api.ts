@@ -27,6 +27,9 @@ export type APIUserProfile = {
   congregation?: {
     id: string;
     cong_role: CongRole[];
+    country_code: string;
+    cong_name: string;
+    cong_number: string;
   };
   user_local_uid: string;
   user_members_delegate: string[];
@@ -35,11 +38,15 @@ export type APIUserProfile = {
 };
 
 export type APIUserSession = {
-  dentifier: string;
+  identifier: string;
   isSelf: boolean;
   ip: string;
   country_name: string;
-  device: { browserName: string; os: string; isMobile: boolean };
+  device: {
+    browserName: string;
+    os: string;
+    isMobile: boolean;
+  };
   last_seen: string;
 };
 

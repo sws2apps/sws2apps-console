@@ -5,4 +5,6 @@ export type UserItemProps = {
   onDelete: VoidFunction;
   onDisableMFA: VoidFunction;
   onUpdate: (lastname: string, firstname: string, email: string) => void;
+  onTerminateSession: (identifier: string) => void;
+  onTerminateSessions: VoidFunction;
 };

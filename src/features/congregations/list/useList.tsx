@@ -9,7 +9,7 @@ import {
 } from '@states/congregations';
 
 const useCongregationsList = () => {
-  const { data: congregations, isLoading } = useQuery({
+  const { data: congregations, isFetching: isLoading } = useQuery({
     queryFn: apiCongregationsGet,
     queryKey: ['congregations'],
   });

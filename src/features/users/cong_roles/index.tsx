@@ -63,7 +63,9 @@ const CongRoles = ({ roles }: CongRolesProps) => {
           </FormGroup>
         </Grid>
       </Grid>
-      <Typography>Read-only roles</Typography>
+      <Typography variant="button" fontWeight="bold" fontStyle="italic">
+        Read-only roles
+      </Typography>
       <FormGroup>
         <FormControlLabel
           control={
