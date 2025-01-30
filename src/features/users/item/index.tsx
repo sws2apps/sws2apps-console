@@ -13,9 +13,9 @@ import UpdateBasicInfo from '../update_ basic_info';
 import CongRoles from '../cong_roles';
 
 const UserItem = (props: UserItemProps) => {
-  const { person, onDelete, onDisableMFA, expanded, setExpanded } = props;
+  const { person, onDelete, onDisableMFA } = props;
 
-  const { fullname, last_seen, firstnameRef, emailRef, lastnameRef, handleUpdate, roles } = useUserItem(props);
+  const { fullname, last_seen, firstnameRef, emailRef, lastnameRef, handleUpdate, roles, expanded, setExpanded } = useUserItem(props);
 
   return (
     <Accordion expanded={expanded} onChange={(_, expanded) => setExpanded(expanded)}>
