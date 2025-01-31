@@ -39,16 +39,19 @@ const BasicInfo = ({
           onChange={(e) => handleFirstnameChange(e.target.value)}
         />
       </Grid>
-      <Grid size={{ xs: 12, md: 6, lg: 3.5 }}>
-        <TextField
-          fullWidth
-          label="Email"
-          size="small"
-          inputRef={emailRef}
-          value={email}
-          onChange={(e) => handleEmailChange(e.target.value)}
-        />
-      </Grid>
+
+      {person.profile.global_role !== 'pocket' && (
+        <Grid size={{ xs: 12, md: 6, lg: 3.5 }}>
+          <TextField
+            fullWidth
+            label="Email"
+            size="small"
+            inputRef={emailRef}
+            value={email}
+            onChange={(e) => handleEmailChange(e.target.value)}
+          />
+        </Grid>
+      )}
     </Grid>
   );
 };

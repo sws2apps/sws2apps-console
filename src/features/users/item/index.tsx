@@ -93,10 +93,15 @@ const UserItem = (props: UserItemProps) => {
             {person.profile.global_role !== 'admin' && (
               <>
                 <Divider />
-                <Typography variant="button" fontWeight="bold">
-                  Congregation Roles
-                </Typography>
+
+                {person.profile.global_role === 'vip' && (
+                  <Typography variant="button" fontWeight="bold">
+                    Congregation Roles
+                  </Typography>
+                )}
+
                 <CongRoles
+                  global_role={person.profile.global_role}
                   roles={roles}
                   onChange={(role, checked) => handleUpdateRole(role, checked)}
                 />
