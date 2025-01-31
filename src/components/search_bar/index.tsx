@@ -2,9 +2,14 @@ import { Search } from '@mui/icons-material';
 import { SearchBarProps } from './index.types';
 import { SearchBox, SearchIconWrapper, StyledInputBase } from './index.styles';
 
-const SearchBar = ({ placeholder, onSearch, value }: SearchBarProps) => {
+const SearchBar = ({
+  placeholder,
+  onSearch,
+  value,
+  ...boxProps
+}: SearchBarProps) => {
   return (
-    <SearchBox>
+    <SearchBox {...boxProps}>
       <SearchIconWrapper>
         <Search />
       </SearchIconWrapper>

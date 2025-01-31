@@ -9,6 +9,7 @@ const CongregationSearch = () => {
       placeholder="Search a congregation"
       value={value}
       onSearch={handleValueChange}
+      sx={{ flex: 1 }}
     />
   );
 };
