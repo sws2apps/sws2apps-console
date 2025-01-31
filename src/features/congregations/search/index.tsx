@@ -1,15 +1,14 @@
-import { TextField } from '@mui/material';
 import useCongregationSearch from './useCongregationSearch';
+import SearchBar from '@components/search_bar';
 
 const CongregationSearch = () => {
   const { handleValueChange, value } = useCongregationSearch();
 
   return (
-    <TextField
-      label={`Search a congregation`}
-      size="small"
+    <SearchBar
+      placeholder="Search a congregation"
       value={value}
-      onChange={(e) => handleValueChange(e.target.value)}
+      onSearch={handleValueChange}
     />
   );
 };
