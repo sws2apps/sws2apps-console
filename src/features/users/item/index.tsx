@@ -90,23 +90,26 @@ const UserItem = (props: UserItemProps) => {
               emailRef={emailRef}
             />
 
-            {person.profile.global_role !== 'admin' && (
-              <>
-                <Divider />
+            {person.profile.global_role !== 'admin' &&
+              person.profile.congregation.id && (
+                <>
+                  <Divider />
 
-                {person.profile.global_role === 'vip' && (
-                  <Typography variant="button" fontWeight="bold">
-                    Congregation Roles
-                  </Typography>
-                )}
+                  {person.profile.global_role === 'vip' && (
+                    <Typography variant="button" fontWeight="bold">
+                      Congregation Roles
+                    </Typography>
+                  )}
 
-                <CongRoles
-                  global_role={person.profile.global_role}
-                  roles={roles}
-                  onChange={(role, checked) => handleUpdateRole(role, checked)}
-                />
-              </>
-            )}
+                  <CongRoles
+                    global_role={person.profile.global_role}
+                    roles={roles}
+                    onChange={(role, checked) =>
+                      handleUpdateRole(role, checked)
+                    }
+                  />
+                </>
+              )}
 
             {person.sessions.length > 0 && (
               <>

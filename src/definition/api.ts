@@ -24,7 +24,7 @@ export type APIUserProfile = {
   global_role: GlobalRole;
   firstname: { value: string; updatedAt: string };
   lastname: { value: string; updatedAt: string };
-  congregation?: {
+  congregation: {
     id: string;
     cong_role: CongRole[];
     country_code: string;
