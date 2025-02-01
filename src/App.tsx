@@ -14,6 +14,7 @@ import Notification from '@features/notification';
 
 const Congregations = lazy(() => import('@pages/congregations'));
 const Users = lazy(() => import('@pages/users'));
+const FeatureFlags = lazy(() => import('@pages/feature_flags'));
 
 const cache = createCache({
   key: 'css',
@@ -52,6 +53,7 @@ const App = () => {
                   <Route index element={<Dashboard />} />
                   <Route path="users" element={<Users />} />
                   <Route path="congregations" element={<Congregations />} />
+                  <Route path="feature-flags" element={<FeatureFlags />} />
                 </Route>
               </Routes>
             </BrowserRouter>

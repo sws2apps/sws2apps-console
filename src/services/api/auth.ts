@@ -46,7 +46,7 @@ export const apiAuthorizeUser = async () => {
     const data = await res.json();
 
     if (res.status === 403) {
-      throw new Error('UNAUTHORIZED_ACCESS');
+      return { message: data.message };
     }
 
     if (res.status !== 200) {

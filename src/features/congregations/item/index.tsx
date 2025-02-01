@@ -1,4 +1,4 @@
-import { Box, CircularProgress, Typography } from '@mui/material';
+import { Box, Chip, CircularProgress, Typography } from '@mui/material';
 import {
   Accordion,
   AccordionDetails,
@@ -47,6 +47,11 @@ const CongregationItem = ({ congregation }: CongregationItemProps) => {
             <Typography>
               ({congregation.cong_number}) {congregation.cong_name}
             </Typography>
+
+            <Chip
+              label={new Date(congregation.createdAt).toLocaleString()}
+              size="small"
+            />
           </Box>
 
           {isProcessing && <CircularProgress size={20} />}

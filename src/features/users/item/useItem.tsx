@@ -38,7 +38,7 @@ const useUserItem = ({ person, onUpdate }: UserItemProps) => {
   }, [person]);
 
   const congregation = useMemo(() => {
-    if (location.pathname === 'congregations') return;
+    if (location.pathname === '/congregations') return;
 
     const congId = person.profile.congregation?.id;
 

@@ -11,6 +11,7 @@ export type APICongregation = {
   country_name: string;
   cong_name: string;
   cong_number: string;
+  createdAt: string;
 };
 
 export type APICountry = {
@@ -54,4 +55,15 @@ export type APIUser = {
   id: string;
   profile: APIUserProfile;
   sessions: APIUserSession[];
+};
+
+export type APIFeatureFlag = {
+  id: string;
+  name: string;
+  description: string;
+  availability: 'app' | 'user' | 'congregation';
+  status: boolean;
+  coverage: number;
+  users: { name: string; id: string }[];
+  congregations: { name: string; id: string }[];
 };
