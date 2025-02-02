@@ -1,4 +1,4 @@
-name: Deploy Staging Environment
+name: Deploy to Staging Environment
 env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}

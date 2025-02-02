@@ -1,7 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
 import { GoogleAuthProvider } from 'firebase/auth';
 import { useSetAtom } from 'jotai';
-import { authSignInPopup, setAuthPersistence } from '@services/firebase/auth';
+import {
+  authSignInPopup,
+  authSignOut,
+  setAuthPersistence,
+} from '@services/firebase/auth';
 import { apiAuthorizeUser, apiLoginUser } from '@services/api/auth';
 import { isUserConnectedState, isUserVerifyMFAState } from '@states/app';
 import { showNotification } from '@services/app/notification';
@@ -40,11 +44,20 @@ const useSignin = () => {
       }
 
       await apiAuthorizeUser();
-      setUserConnected(true);
+
+      if (logged.message === 'OK') {
+        setIsProcessing(false);
+        setUserConnected(true);
+        return;
+      }
+
+      await authSignOut();
 
       setIsProcessing(false);
     } catch (error) {
       console.error(error);
+
+      await authSignOut();
 
       setIsProcessing(false);
 
