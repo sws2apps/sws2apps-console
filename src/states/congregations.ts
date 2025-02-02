@@ -15,6 +15,7 @@ export const congregationsFilteredState = atom((get) => {
   const filtered = congregations.filter((record) => {
     const key = search.toLowerCase();
 
+    if (record.id.toLowerCase().includes(key)) return true;
     if (record.cong_name.toLowerCase().includes(key)) return true;
     if (record.cong_number.toString().toLowerCase().includes(key)) return true;
     if (record.country_code.toLowerCase().includes(key)) return true;

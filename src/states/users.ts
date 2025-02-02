@@ -15,6 +15,7 @@ export const usersFilteredState = atom((get) => {
   const filtered = users.filter((record) => {
     const key = search.toLowerCase();
 
+    if (record.id.toLowerCase().includes(key)) return true;
     if (record.profile.email?.toLowerCase().includes(key)) return true;
     if (record.profile.firstname.value.toString().toLowerCase().includes(key))
       return true;
