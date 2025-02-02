@@ -16,7 +16,7 @@ jobs:
     name: Build and deploy application
     if: ${{ github.repository == 'sws2apps/sws2apps-console' && github.ref == 'refs/heads/main' }}
     environment:
-      name: Test
+      name: Staging
       url: https://staging-console.sws2apps.com
     runs-on: ubuntu-latest
 
