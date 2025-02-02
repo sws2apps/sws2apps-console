@@ -43,9 +43,9 @@ const useSignin = () => {
         return;
       }
 
-      await apiAuthorizeUser();
+      const authorize = await apiAuthorizeUser();
 
-      if (logged.message === 'OK') {
+      if (authorize.message === 'OK') {
         setIsProcessing(false);
         setUserConnected(true);
         return;
