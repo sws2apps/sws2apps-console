@@ -1,16 +1,14 @@
-import { Box, Chip, CircularProgress, Typography } from '@mui/material';
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-} from '@components/accordion';
+import { Box, Chip, CircularProgress, FormControlLabel, Stack, Switch, Typography } from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary } from '@components/accordion';
 import { IconCongregation } from '@icons/index';
 import { CongregationItemProps } from './index.type';
 import useCongregationItem from './useItem';
 import UserItem from '@features/users/item';
 import DeleteCongregation from '../delete_congregation';
 
-const CongregationItem = ({ congregation }: CongregationItemProps) => {
+const CongregationItem = (props: CongregationItemProps) => {
+  const { congregation } = props;
+
   const {
     expanded,
     setExpanded,
@@ -23,17 +21,13 @@ const CongregationItem = ({ congregation }: CongregationItemProps) => {
     isProcessing,
     handleTerminateAllSessions,
     handleTerminateSession,
-  } = useCongregationItem(congregation.id);
+    dataSync,
+    handleToggleDataSync,
+  } = useCongregationItem(props);
 
   return (
-    <Accordion
-      expanded={expanded}
-      onChange={(_, expanded) => setExpanded(expanded)}
-    >
-      <AccordionSummary
-        aria-controls={`panel-${congregation.id}-content"`}
-        id={`panel-${congregation.id}-header"`}
-      >
+    <Accordion expanded={expanded} onChange={(_, expanded) => setExpanded(expanded)}>
+      <AccordionSummary aria-controls={`panel-${congregation.id}-content"`} id={`panel-${congregation.id}-header"`}>
         <Box
           sx={{
             display: 'flex',
@@ -48,10 +42,7 @@ const CongregationItem = ({ congregation }: CongregationItemProps) => {
               ({congregation.cong_number}) {congregation.cong_name}
             </Typography>
 
-            <Chip
-              label={new Date(congregation.createdAt).toLocaleString()}
-              size="small"
-            />
+            <Chip label={new Date(congregation.createdAt).toLocaleString()} size='small' />
           </Box>
 
           {isProcessing && <CircularProgress size={20} />}
@@ -63,20 +54,16 @@ const CongregationItem = ({ congregation }: CongregationItemProps) => {
             {isLoading && <CircularProgress />}
 
             {!isLoading && (
-              <Box
-                sx={{ display: 'flex', gap: '12px', flexDirection: 'column' }}
-              >
-                <Box
-                  sx={{ display: 'flex', alignItems: 'center', gap: '12px' }}
-                >
+              <Stack spacing='12px'>
+                <FormControlLabel control={<Switch checked={dataSync} onChange={handleToggleDataSync} />} label='Data synchronization enabled' />
+
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                   <DeleteCongregation onConfirm={handleDeleteCongregation} />
                 </Box>
 
                 {persons.length > 0 && (
                   <>
-                    <Typography fontWeight="bold">
-                      PERSONS ({persons.length})
-                    </Typography>
+                    <Typography fontWeight='bold'>PERSONS ({persons.length})</Typography>
                   </>
                 )}
 
@@ -96,16 +83,12 @@ const CongregationItem = ({ congregation }: CongregationItemProps) => {
                           roles,
                         })
                       }
-                      onTerminateSession={(identifier) =>
-                        handleTerminateSession(person.id, identifier)
-                      }
-                      onTerminateSessions={() =>
-                        handleTerminateAllSessions(person.id)
-                      }
+                      onTerminateSession={(identifier) => handleTerminateSession(person.id, identifier)}
+                      onTerminateSessions={() => handleTerminateAllSessions(person.id)}
                     />
                   ))}
                 </Box>
-              </Box>
+              </Stack>
             )}
           </>
         )}

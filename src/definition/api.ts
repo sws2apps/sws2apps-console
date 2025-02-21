@@ -12,6 +12,8 @@ export type APICongregation = {
   cong_name: string;
   cong_number: string;
   createdAt: string;
+  data_sync: boolean;
+  metadata: Record<string, string>;
 };
 
 export type APICountry = {

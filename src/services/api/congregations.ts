@@ -32,19 +32,16 @@ export const apiCongregationPersonsGet = async (id: string) => {
   try {
     const { apiHost, appversion, idToken } = await apiDefault();
 
-    const res = await fetch(
-      `${apiHost}api/v3/admin/congregations/${id}/persons`,
-      {
-        method: 'GET',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${idToken}`,
-          appclient: 'admin',
-          appversion,
-        },
-      }
-    );
+    const res = await fetch(`${apiHost}api/v3/admin/congregations/${id}/persons`, {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${idToken}`,
+        appclient: 'admin',
+        appversion,
+      },
+    });
 
     const data = await res.json();
 
@@ -64,6 +61,33 @@ export const apiCongregationDelete = async (id: string) => {
 
     const res = await fetch(`${apiHost}api/v3/admin/congregations/${id}`, {
       method: 'DELETE',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${idToken}`,
+        appclient: 'admin',
+        appversion,
+      },
+    });
+
+    const data = await res.json();
+
+    if (res.status !== 200) {
+      throw new Error(data?.message);
+    }
+
+    return data as APICongregation[];
+  } catch (error) {
+    throw new Error((error as Error).message);
+  }
+};
+
+export const apiCongregationToggleDataSync = async (id: string) => {
+  try {
+    const { apiHost, appversion, idToken } = await apiDefault();
+
+    const res = await fetch(`${apiHost}api/v3/admin/congregations/${id}/data-sync`, {
+      method: 'PATCH',
       credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
