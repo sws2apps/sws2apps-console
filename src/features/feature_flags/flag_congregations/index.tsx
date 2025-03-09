@@ -8,7 +8,7 @@ import {
 } from '@mui/material';
 import { FlagCongregationsProps } from './index.type';
 import useFlagCongregations from './useFlagCongregations';
-import FlagUser from './item';
+import FlagCongregation from './item';
 
 const FlagCongregations = (props: FlagCongregationsProps) => {
   const { flag } = props;
@@ -74,7 +74,7 @@ const FlagCongregations = (props: FlagCongregationsProps) => {
       {flag.congregations.length > 0 && (
         <Grid container spacing={1}>
           {flag.congregations.map((cong) => (
-            <FlagUser key={cong.id} cong={cong} flag={flag.id} />
+            <FlagCongregation key={cong.id} cong={cong} flag={flag.id} />
           ))}
         </Grid>
       )}

@@ -4,7 +4,7 @@ import { APICongregation } from '@definition/api';
 import { showNotification } from '@services/app/notification';
 import { FlagCongregationsProps } from './index.type';
 import { featureFlagsState } from '@states/feature_flags';
-import { apiUserFlagToggle } from '@services/api/feature_flags';
+import { apiCongregationFlagToggle } from '@services/api/feature_flags';
 import { apiCongregationsGet } from '@services/api/congregations';
 
 const useFlagCongregations = ({ flag }: FlagCongregationsProps) => {
@@ -57,7 +57,7 @@ const useFlagCongregations = ({ flag }: FlagCongregationsProps) => {
       setIsProcessing(true);
       setIsProcessing(false);
 
-      const flags = await apiUserFlagToggle(value.id, flag.id);
+      const flags = await apiCongregationFlagToggle(value.id, flag.id);
       setFlags(flags);
 
       setCongregation(null);
