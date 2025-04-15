@@ -14,7 +14,7 @@
     "@emotion/styled": "^11.14.0",
     "@mui/icons-material": "^7.0.2",
     "@mui/material": "^7.0.2",
-    "@tanstack/react-query": "^5.74.0",
+    "@tanstack/react-query": "^5.74.3",
     "firebase": "^11.6.0",
     "jotai": "^2.12.3",
     "react": "^19.0.0",
