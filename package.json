@@ -15,7 +15,7 @@
     "@mui/icons-material": "^7.0.2",
     "@mui/material": "^7.0.2",
     "@tanstack/react-query": "^5.74.4",
-    "firebase": "^11.6.0",
+    "firebase": "^11.6.1",
     "jotai": "^2.12.3",
     "react": "^19.0.0",
     "react-dom": "^19.1.0",
