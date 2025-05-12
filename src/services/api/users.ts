@@ -178,3 +178,34 @@ export const apiUserDeleteSessions = async (id: string) => {
     throw new Error((error as Error).message);
   }
 };
+
+export const apiUserAssignCongregation = async (
+  id: string,
+  congregation: string
+) => {
+  try {
+    const { apiHost, appversion, idToken } = await apiDefault();
+
+    const res = await fetch(`${apiHost}api/v3/admin/users/${id}/congregation`, {
+      method: 'PATCH',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${idToken}`,
+        appclient: 'admin',
+        appversion,
+      },
+      body: JSON.stringify({ congregation }),
+    });
+
+    const data = await res.json();
+
+    if (res.status !== 200) {
+      throw new Error(data?.message);
+    }
+
+    return data as APIUser[];
+  } catch (error) {
+    throw new Error((error as Error).message);
+  }
+};
