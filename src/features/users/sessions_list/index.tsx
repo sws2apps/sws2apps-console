@@ -1,4 +1,4 @@
-import { Box, Grid2 as Grid, Stack, Typography } from '@mui/material';
+import { Box, Grid, Stack, Typography } from '@mui/material';
 import { SessionsListProps } from './index.types';
 import SessionItem from '../session_item';
 

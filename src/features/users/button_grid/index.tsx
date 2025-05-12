@@ -1,4 +1,4 @@
-import { Button, ButtonProps, Grid2 as Grid } from '@mui/material';
+import { Button, ButtonProps, Grid } from '@mui/material';
 
 const ButtonGrid = (props: ButtonProps) => {
   return (

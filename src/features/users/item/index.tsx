@@ -1,4 +1,4 @@
-import { Box, Divider, Grid2 as Grid, Stack, Typography } from '@mui/material';
+import { Box, Divider, Grid, Stack, Typography } from '@mui/material';
 import { NoEncryptionGmailerrorred, Token } from '@mui/icons-material';
 import {
   Accordion,
@@ -10,6 +10,7 @@ import useUserItem from './useItem';
 import Activity from '../activity';
 import BasicInfo from '../basic_info';
 import ButtonGrid from '../button_grid';
+import CongregationAdd from '../congregation_add';
 import CongRoles from '../cong_roles';
 import DeleteUser from '../delete_user';
 import Label from '../label';
@@ -59,6 +60,15 @@ const UserItem = (props: UserItemProps) => {
       <AccordionDetails>
         {expanded && (
           <Stack spacing="16px">
+            {person.profile.global_role !== 'admin' &&
+              !person.profile.congregation.id && (
+                <>
+                  <CongregationAdd user={person.id} />
+
+                  <Divider />
+                </>
+              )}
+
             <Box
               sx={{
                 display: 'flex',

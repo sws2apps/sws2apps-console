@@ -1,4 +1,4 @@
-import { Grid2 as Grid, Paper, Switch, Typography } from '@mui/material';
+import { Grid, Paper, Switch, Typography } from '@mui/material';
 import { FlagUserProps } from './index.type';
 import useFlagUser from './useItem';
 

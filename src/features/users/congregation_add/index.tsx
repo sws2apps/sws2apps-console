@@ -1,37 +1,25 @@
-import {
-  Autocomplete,
-  CircularProgress,
-  Grid,
-  Stack,
-  TextField,
-  Typography,
-} from '@mui/material';
-import { FlagUsersProps } from './index.type';
-import useFlagUsers from './useFlagUsers';
-import FlagUser from './item';
+import { Autocomplete, Box, CircularProgress, TextField } from '@mui/material';
+import { CongregationAddProps } from './index.types';
+import useCongregationAdd from './useCongregationAdd';
 
-const FlagUsers = (props: FlagUsersProps) => {
-  const { flag } = props;
-
+const CongregationAdd = (props: CongregationAddProps) => {
   const {
+    congregation,
     handleClose,
     handleOpen,
+    inputValue,
     loading,
     open,
     options,
-    handleUserAdd,
-    user,
-    inputValue,
     setInputValue,
-  } = useFlagUsers(props);
+    handleBindUser,
+    isProcessing,
+  } = useCongregationAdd(props);
 
   return (
-    <Stack spacing="24px">
-      <Typography variant="button" fontWeight="bold">
-        USERS
-      </Typography>
-
+    <Box sx={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
       <Autocomplete
+        readOnly={isProcessing}
         size="small"
         sx={{ width: 350 }}
         open={open}
@@ -39,22 +27,22 @@ const FlagUsers = (props: FlagUsersProps) => {
         onClose={handleClose}
         isOptionEqualToValue={(option, value) => option.id === value.id}
         getOptionLabel={(option) => {
-          let name = option.profile.lastname.value;
-          name += name.length > 0 ? ' ' : '';
-          name += option.profile.firstname.value;
+          let name = `(${option.country_code}) `;
+          name += option.cong_name;
 
           return name;
         }}
         options={options}
-        loading={loading}
-        value={user}
-        onChange={(_, value) => handleUserAdd(value)}
+        loading={loading || isProcessing}
+        value={congregation}
+        onChange={(_, value) => handleBindUser(value)}
         inputValue={inputValue}
         onInputChange={(_, value) => setInputValue(value)}
+        clearIcon={null}
         renderInput={(params) => (
           <TextField
             {...params}
-            label="Add new user"
+            label="Find congregation"
             slotProps={{
               input: {
                 ...params.InputProps,
@@ -71,16 +59,8 @@ const FlagUsers = (props: FlagUsersProps) => {
           />
         )}
       />
-
-      {flag.users.length > 0 && (
-        <Grid container spacing={1}>
-          {flag.users.map((user) => (
-            <FlagUser key={user.id} user={user} flag={flag.id} />
-          ))}
-        </Grid>
-      )}
-    </Stack>
+    </Box>
   );
 };
 
-export default FlagUsers;
+export default CongregationAdd;

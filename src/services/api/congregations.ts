@@ -32,16 +32,19 @@ export const apiCongregationPersonsGet = async (id: string) => {
   try {
     const { apiHost, appversion, idToken } = await apiDefault();
 
-    const res = await fetch(`${apiHost}api/v3/admin/congregations/${id}/persons`, {
-      method: 'GET',
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${idToken}`,
-        appclient: 'admin',
-        appversion,
-      },
-    });
+    const res = await fetch(
+      `${apiHost}api/v3/admin/congregations/${id}/persons`,
+      {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${idToken}`,
+          appclient: 'admin',
+          appversion,
+        },
+      }
+    );
 
     const data = await res.json();
 
@@ -86,8 +89,42 @@ export const apiCongregationToggleDataSync = async (id: string) => {
   try {
     const { apiHost, appversion, idToken } = await apiDefault();
 
-    const res = await fetch(`${apiHost}api/v3/admin/congregations/${id}/data-sync`, {
-      method: 'PATCH',
+    const res = await fetch(
+      `${apiHost}api/v3/admin/congregations/${id}/data-sync`,
+      {
+        method: 'PATCH',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${idToken}`,
+          appclient: 'admin',
+          appversion,
+        },
+      }
+    );
+
+    const data = await res.json();
+
+    if (res.status !== 200) {
+      throw new Error(data?.message);
+    }
+
+    return data as APICongregation[];
+  } catch (error) {
+    throw new Error((error as Error).message);
+  }
+};
+
+export const apiCongregationCreate = async (
+  country: string,
+  name: string,
+  number: string
+) => {
+  try {
+    const { apiHost, appversion, idToken } = await apiDefault();
+
+    const res = await fetch(`${apiHost}api/v3/admin/congregations`, {
+      method: 'POST',
       credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
@@ -95,6 +132,7 @@ export const apiCongregationToggleDataSync = async (id: string) => {
         appclient: 'admin',
         appversion,
       },
+      body: JSON.stringify({ country, name, number }),
     });
 
     const data = await res.json();
