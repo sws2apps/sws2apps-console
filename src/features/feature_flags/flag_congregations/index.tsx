@@ -1,7 +1,7 @@
 import {
   Autocomplete,
   CircularProgress,
-  Grid2 as Grid,
+  Grid,
   Stack,
   TextField,
   Typography,

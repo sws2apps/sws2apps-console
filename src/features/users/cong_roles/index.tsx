@@ -2,7 +2,7 @@ import {
   Checkbox,
   FormControlLabel,
   FormGroup,
-  Grid2 as Grid,
+  Grid,
   Stack,
   Typography,
 } from '@mui/material';
