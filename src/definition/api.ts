@@ -13,7 +13,6 @@ export type APICongregation = {
   cong_number: string;
   createdAt: string;
   data_sync: boolean;
-  metadata: Record<string, string>;
 };
 
 export type APICountry = {
@@ -68,4 +67,19 @@ export type APIFeatureFlag = {
   coverage: number;
   users: { name: string; id: string }[];
   congregations: { name: string; id: string }[];
+};
+
+export type APIRequestCongregation = {
+  cong_id: string;
+  request_id: string;
+  cong_country: string;
+  cong_number: string;
+  cong_name: string;
+  request_status: 'pending' | 'approved' | 'disapproved';
+};
+
+export type APICongregationDetails = {
+  cong_persons: APIUser[];
+  cong_requests: APIRequestCongregation[];
+  has_speakers_key: boolean;
 };

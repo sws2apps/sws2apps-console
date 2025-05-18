@@ -1,4 +1,4 @@
-import { APICongregation, APIUser } from '@definition/api';
+import { APICongregation, APICongregationDetails } from '@definition/api';
 import { apiDefault } from './common';
 
 export const apiCongregationsGet = async () => {
@@ -28,23 +28,20 @@ export const apiCongregationsGet = async () => {
   }
 };
 
-export const apiCongregationPersonsGet = async (id: string) => {
+export const apiCongregationGet = async (id: string) => {
   try {
     const { apiHost, appversion, idToken } = await apiDefault();
 
-    const res = await fetch(
-      `${apiHost}api/v3/admin/congregations/${id}/persons`,
-      {
-        method: 'GET',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${idToken}`,
-          appclient: 'admin',
-          appversion,
-        },
-      }
-    );
+    const res = await fetch(`${apiHost}api/v3/admin/congregations/${id}`, {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${idToken}`,
+        appclient: 'admin',
+        appversion,
+      },
+    });
 
     const data = await res.json();
 
@@ -52,7 +49,7 @@ export const apiCongregationPersonsGet = async (id: string) => {
       throw new Error(data?.message);
     }
 
-    return data as APIUser[];
+    return data as APICongregationDetails;
   } catch (error) {
     throw new Error((error as Error).message);
   }
@@ -109,7 +106,7 @@ export const apiCongregationToggleDataSync = async (id: string) => {
       throw new Error(data?.message);
     }
 
-    return data as APICongregation[];
+    return data as APICongregationDetails;
   } catch (error) {
     throw new Error((error as Error).message);
   }
@@ -142,6 +139,69 @@ export const apiCongregationCreate = async (
     }
 
     return data as APICongregation[];
+  } catch (error) {
+    throw new Error((error as Error).message);
+  }
+};
+
+export const apiCongregationDeleteRequest = async (
+  id: string,
+  request_id: string
+) => {
+  try {
+    const { apiHost, appversion, idToken } = await apiDefault();
+
+    const res = await fetch(
+      `${apiHost}api/v3/admin/congregations/${id}/requests/${request_id}`,
+      {
+        method: 'DELETE',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${idToken}`,
+          appclient: 'admin',
+          appversion,
+        },
+      }
+    );
+
+    const data = await res.json();
+
+    if (res.status !== 200) {
+      throw new Error(data?.message);
+    }
+
+    return data as APICongregationDetails;
+  } catch (error) {
+    throw new Error((error as Error).message);
+  }
+};
+
+export const apiCongregationResetSpeakersKey = async (id: string) => {
+  try {
+    const { apiHost, appversion, idToken } = await apiDefault();
+
+    const res = await fetch(
+      `${apiHost}api/v3/admin/congregations/${id}/speakers-key`,
+      {
+        method: 'DELETE',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${idToken}`,
+          appclient: 'admin',
+          appversion,
+        },
+      }
+    );
+
+    const data = await res.json();
+
+    if (res.status !== 200) {
+      throw new Error(data?.message);
+    }
+
+    return data as APICongregationDetails;
   } catch (error) {
     throw new Error((error as Error).message);
   }
