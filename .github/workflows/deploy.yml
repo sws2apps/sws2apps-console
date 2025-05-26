@@ -40,6 +40,7 @@ jobs:
           VITE_FIREBASE_AUTHDOMAIN: ${{ secrets.VITE_FIREBASE_AUTHDOMAIN }}
           VITE_FIREBASE_PROJECTID: ${{ secrets.VITE_FIREBASE_PROJECTID }}
           VITE_FIREBASE_APPID: ${{ secrets.VITE_FIREBASE_APPID }}
+          VITE_BACKEND_API: ${{ secrets.VITE_BACKEND_API }}
 
       - name: Check if new version has been generated
         id: check_build
