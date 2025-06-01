@@ -17,6 +17,7 @@ const GlobalRole = ({ group }: GlobalRoleProps) => {
     handleUpdateUserBasic,
     handleTerminateAllSessions,
     handleTerminateSession,
+    handleCongregationRemove,
   } = useGlobalRole();
 
   return (
@@ -53,6 +54,7 @@ const GlobalRole = ({ group }: GlobalRoleProps) => {
                 handleTerminateSession(person.id, identifier)
               }
               onTerminateSessions={() => handleTerminateAllSessions(person.id)}
+              onCongregationRemove={() => handleCongregationRemove(person.id)}
             />
           ))}
       </AccordionDetails>

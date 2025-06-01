@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import {
+  apiUserCongregationRemove,
   apiUserDelete,
   apiUserDeleteSession,
   apiUserDeleteSessions,
@@ -152,6 +153,24 @@ const useGlobalRole = () => {
     }
   };
 
+  const handleCongregationRemove = async (userId: string) => {
+    if (isProcessing) return;
+
+    try {
+      setIsProcessing(true);
+
+      const users = await apiUserCongregationRemove(userId);
+      setUsers(users);
+
+      setIsProcessing(false);
+    } catch (error) {
+      setIsProcessing(false);
+
+      console.error(error);
+      showNotification((error as Error).message, 'error');
+    }
+  };
+
   return {
     expanded,
     setExpanded,
@@ -160,6 +179,7 @@ const useGlobalRole = () => {
     handleUpdateUserBasic,
     handleTerminateSession,
     handleTerminateAllSessions,
+    handleCongregationRemove,
   };
 };
 

@@ -41,6 +41,7 @@ const CongregationItem = (props: CongregationItemProps) => {
     handleDeleteAccessRequest,
     hasSpeakersKey,
     handleResetSpeakersKey,
+    handleRemoveCongregation,
   } = useCongregationItem(props);
 
   return (
@@ -125,6 +126,9 @@ const CongregationItem = (props: CongregationItemProps) => {
                           }
                           onTerminateSessions={() =>
                             handleTerminateAllSessions(person.id)
+                          }
+                          onCongregationRemove={() =>
+                            handleRemoveCongregation(person.id)
                           }
                         />
                       ))}

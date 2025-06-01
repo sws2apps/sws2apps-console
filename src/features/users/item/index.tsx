@@ -15,6 +15,7 @@ import CongRoles from '../cong_roles';
 import DeleteUser from '../delete_user';
 import Label from '../label';
 import MFAStatus from '../mfa_status';
+import RemoveCongregation from '../remove_congregation';
 import SessionsList from '../sessions_list';
 import UpdateBasicInfo from '../update_ basic_info';
 import TerminateSessions from '../terminate_sessions';
@@ -26,6 +27,7 @@ const UserItem = (props: UserItemProps) => {
     onDisableMFA,
     onTerminateSessions,
     onTerminateSession,
+    onCongregationRemove,
   } = props;
 
   const {
@@ -154,6 +156,10 @@ const UserItem = (props: UserItemProps) => {
 
               {person.sessions.length > 0 && (
                 <TerminateSessions onConfirm={onTerminateSessions} />
+              )}
+
+              {person.profile.congregation.id && (
+                <RemoveCongregation onConfirm={onCongregationRemove} />
               )}
 
               <DeleteUser onConfirm={onDelete} />

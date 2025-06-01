@@ -14,6 +14,7 @@ import {
 } from '@states/congregations';
 import { showNotification } from '@services/app/notification';
 import {
+  apiUserCongregationRemove,
   apiUserDelete,
   apiUserDeleteSession,
   apiUserDeleteSessions,
@@ -23,6 +24,7 @@ import {
 import { APIRequestCongregation, APIUser } from '@definition/api';
 import { CongRole } from '@definition/congregation';
 import { CongregationItemProps } from './index.type';
+import { usersState } from '@states/users';
 
 const useCongregationItem = ({ congregation }: CongregationItemProps) => {
   const [expanded, setExpanded] = useState(false);
@@ -35,6 +37,7 @@ const useCongregationItem = ({ congregation }: CongregationItemProps) => {
   });
 
   const setCongregations = useSetAtom(congregationsState);
+  const setUsers = useSetAtom(usersState);
 
   const [isProcessing, setIsProcessing] = useAtom(congregationBusyState);
 
@@ -262,6 +265,27 @@ const useCongregationItem = ({ congregation }: CongregationItemProps) => {
     }
   };
 
+  const handleRemoveCongregation = async (userId: string) => {
+    if (isProcessing) return;
+
+    try {
+      setIsProcessing(true);
+
+      const users = await apiUserCongregationRemove(userId);
+      setUsers(users);
+
+      const res = await apiCongregationGet(congregation.id);
+      setPersons(res.cong_persons);
+
+      setIsProcessing(false);
+    } catch (error) {
+      setIsProcessing(false);
+
+      console.error(error);
+      showNotification((error as Error).message, 'error');
+    }
+  };
+
   useEffect(() => {
     setPersons([]);
     setRequests([]);
@@ -301,6 +325,7 @@ const useCongregationItem = ({ congregation }: CongregationItemProps) => {
     handleDeleteAccessRequest,
     hasSpeakersKey,
     handleResetSpeakersKey,
+    handleRemoveCongregation,
   };
 };
 

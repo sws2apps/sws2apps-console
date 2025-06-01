@@ -13,4 +13,5 @@ export type UserItemProps = {
   ) => void;
   onTerminateSession: (identifier: string) => void;
   onTerminateSessions: VoidFunction;
+  onCongregationRemove: VoidFunction;
 };
