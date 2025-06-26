@@ -206,3 +206,35 @@ export const apiCongregationResetSpeakersKey = async (id: string) => {
     throw new Error((error as Error).message);
   }
 };
+
+export const apiCongregationUpdateBasic = async (
+  id: string,
+  name: string,
+  number: string
+) => {
+  try {
+    const { apiHost, appversion, idToken } = await apiDefault();
+
+    const res = await fetch(`${apiHost}api/v3/admin/congregations/${id}`, {
+      method: 'PATCH',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${idToken}`,
+        appclient: 'admin',
+        appversion,
+      },
+      body: JSON.stringify({ name, number }),
+    });
+
+    const data = await res.json();
+
+    if (res.status !== 200) {
+      throw new Error(data?.message);
+    }
+
+    return data as APICongregation[];
+  } catch (error) {
+    throw new Error((error as Error).message);
+  }
+};
