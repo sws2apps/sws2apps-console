@@ -18,6 +18,7 @@ import useCongregationItem from './useItem';
 import CongregationAccessRequest from '../access_request';
 import DeleteCongregation from '../delete_congregation';
 import SpeakersKeyReset from '../speakers_key_reset';
+import UpdateBasic from '../update_basic';
 import UserItem from '@features/users/item';
 
 const CongregationItem = (props: CongregationItemProps) => {
@@ -83,14 +84,16 @@ const CongregationItem = (props: CongregationItemProps) => {
 
             {!isLoading && (
               <Stack spacing="12px">
+                <UpdateBasic congregation={congregation} />
                 <FormControlLabel
+                  label="Data synchronization enabled"
+                  sx={{ width: 'fit-content' }}
                   control={
                     <Switch
                       checked={dataSync}
                       onChange={handleToggleDataSync}
                     />
                   }
-                  label="Data synchronization enabled"
                 />
 
                 <Box
