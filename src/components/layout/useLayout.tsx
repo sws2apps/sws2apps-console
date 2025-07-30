@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router';
-import { RocketLaunch } from '@mui/icons-material';
+import { RocketLaunch, Settings } from '@mui/icons-material';
 import { IconAccount, IconCongregation } from '@icons/index';
 
 const useLayout = () => {
@@ -20,6 +20,11 @@ const useLayout = () => {
       icon: <RocketLaunch />,
       text: 'Feature Flags',
       path: 'feature-flags',
+    },
+    {
+      icon: <Settings />,
+      text: 'Settings',
+      path: 'settings',
     },
   ];
 
