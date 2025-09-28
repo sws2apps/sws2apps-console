@@ -14,12 +14,13 @@ const useUpdateBasic = ({ congregation }: UpdateBasicProps) => {
   const setCongregations = useSetAtom(congregationsState);
 
   const [name, setName] = useState(congregation.cong_name);
-  const [number, setNumber] = useState(congregation.cong_number);
+  const [number, setNumber] = useState(congregation.cong_number.value);
   const [open, setOpen] = useState(false);
 
   const hasChanged = useMemo(() => {
     return (
-      name !== congregation.cong_name || number !== congregation.cong_number
+      name !== congregation.cong_name ||
+      number !== congregation.cong_number.value
     );
   }, [name, number, congregation.cong_name, congregation.cong_number]);
 
@@ -62,8 +63,8 @@ const useUpdateBasic = ({ congregation }: UpdateBasicProps) => {
 
   useEffect(() => {
     setName(congregation.cong_name);
-    setNumber(congregation.cong_number);
-  }, [congregation.cong_name, congregation.cong_number]);
+    setNumber(congregation.cong_number.value);
+  }, [congregation.cong_name, congregation.cong_number.value]);
 
   return {
     name,

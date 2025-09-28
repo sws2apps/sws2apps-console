@@ -10,7 +10,7 @@ export type APICongregation = {
   country_code: string;
   country_name: string;
   cong_name: string;
-  cong_number: string;
+  cong_number: { value: string; updatedAt: string };
   createdAt: string;
   data_sync: boolean;
 };
