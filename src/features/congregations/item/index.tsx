@@ -64,9 +64,7 @@ const CongregationItem = (props: CongregationItemProps) => {
         >
           <Box sx={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <IconCongregation />
-            <Typography>
-              ({congregation.cong_number}) {congregation.cong_name}
-            </Typography>
+            <Typography>{congregation.cong_name}</Typography>
 
             <Chip
               label={new Date(congregation.createdAt).toLocaleString()}

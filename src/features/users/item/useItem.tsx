@@ -46,9 +46,8 @@ const useUserItem = ({ person, onUpdate }: UserItemProps) => {
 
     const country = person.profile.congregation!.country_code;
     const name = person.profile.congregation!.cong_name;
-    const number = person.profile.congregation!.cong_number;
 
-    return `${country}-${number} ${name}`;
+    return `${country}-${name}`;
   }, [location, person]);
 
   const handleUpdateRole = (role: CongRole, checked: boolean) => {
