@@ -9,7 +9,8 @@ on:
       - main
   workflow_dispatch:
 
-permissions: read-all
+permissions:
+  contents: read
 
 jobs:
   app_deploy:
@@ -19,10 +20,6 @@ jobs:
       name: Staging
       url: https://staging-console.sws2apps.com
     runs-on: ubuntu-latest
-
-    permissions:
-      actions: read
-      contents: read
 
     steps:
       - name: Checkout for release preparation

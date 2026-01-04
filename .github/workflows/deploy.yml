@@ -3,7 +3,8 @@ name: CD
 on:
   workflow_dispatch:
 
-permissions: read-all
+permissions:
+  contents: read
 
 jobs:
   dev_deploy:
@@ -15,8 +16,7 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-      contents: 'read'
-      id-token: 'write'
+      id-token: write
 
     steps:
       - name: Checkout for release preparation
