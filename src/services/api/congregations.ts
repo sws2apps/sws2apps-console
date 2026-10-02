@@ -3,7 +3,7 @@ import { apiDefault } from './common';
 
 export const apiCongregationsGet = async () => {
   try {
-    const { apiHost, appversion, idToken } = await apiDefault();
+    const { apiHost, idToken } = await apiDefault();
 
     const res = await fetch(`${apiHost}api/v3/admin/congregations`, {
       method: 'GET',
@@ -12,7 +12,6 @@ export const apiCongregationsGet = async () => {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${idToken}`,
         appclient: 'admin',
-        appversion,
       },
     });
 
@@ -30,7 +29,7 @@ export const apiCongregationsGet = async () => {
 
 export const apiCongregationGet = async (id: string) => {
   try {
-    const { apiHost, appversion, idToken } = await apiDefault();
+    const { apiHost, idToken } = await apiDefault();
 
     const res = await fetch(`${apiHost}api/v3/admin/congregations/${id}`, {
       method: 'GET',
@@ -39,7 +38,6 @@ export const apiCongregationGet = async (id: string) => {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${idToken}`,
         appclient: 'admin',
-        appversion,
       },
     });
 
@@ -57,7 +55,7 @@ export const apiCongregationGet = async (id: string) => {
 
 export const apiCongregationDelete = async (id: string) => {
   try {
-    const { apiHost, appversion, idToken } = await apiDefault();
+    const { apiHost, idToken } = await apiDefault();
 
     const res = await fetch(`${apiHost}api/v3/admin/congregations/${id}`, {
       method: 'DELETE',
@@ -66,7 +64,6 @@ export const apiCongregationDelete = async (id: string) => {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${idToken}`,
         appclient: 'admin',
-        appversion,
       },
     });
 
@@ -84,7 +81,7 @@ export const apiCongregationDelete = async (id: string) => {
 
 export const apiCongregationToggleDataSync = async (id: string) => {
   try {
-    const { apiHost, appversion, idToken } = await apiDefault();
+    const { apiHost, idToken } = await apiDefault();
 
     const res = await fetch(
       `${apiHost}api/v3/admin/congregations/${id}/data-sync`,
@@ -95,7 +92,6 @@ export const apiCongregationToggleDataSync = async (id: string) => {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${idToken}`,
           appclient: 'admin',
-          appversion,
         },
       }
     );
@@ -118,7 +114,7 @@ export const apiCongregationCreate = async (
   number: string
 ) => {
   try {
-    const { apiHost, appversion, idToken } = await apiDefault();
+    const { apiHost, idToken } = await apiDefault();
 
     const res = await fetch(`${apiHost}api/v3/admin/congregations`, {
       method: 'POST',
@@ -127,7 +123,6 @@ export const apiCongregationCreate = async (
         'Content-Type': 'application/json',
         Authorization: `Bearer ${idToken}`,
         appclient: 'admin',
-        appversion,
       },
       body: JSON.stringify({ country, name, number }),
     });
@@ -149,7 +144,7 @@ export const apiCongregationDeleteRequest = async (
   request_id: string
 ) => {
   try {
-    const { apiHost, appversion, idToken } = await apiDefault();
+    const { apiHost, idToken } = await apiDefault();
 
     const res = await fetch(
       `${apiHost}api/v3/admin/congregations/${id}/requests/${request_id}`,
@@ -160,7 +155,6 @@ export const apiCongregationDeleteRequest = async (
           'Content-Type': 'application/json',
           Authorization: `Bearer ${idToken}`,
           appclient: 'admin',
-          appversion,
         },
       }
     );
@@ -179,7 +173,7 @@ export const apiCongregationDeleteRequest = async (
 
 export const apiCongregationResetSpeakersKey = async (id: string) => {
   try {
-    const { apiHost, appversion, idToken } = await apiDefault();
+    const { apiHost, idToken } = await apiDefault();
 
     const res = await fetch(
       `${apiHost}api/v3/admin/congregations/${id}/speakers-key`,
@@ -190,7 +184,6 @@ export const apiCongregationResetSpeakersKey = async (id: string) => {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${idToken}`,
           appclient: 'admin',
-          appversion,
         },
       }
     );
@@ -213,7 +206,7 @@ export const apiCongregationUpdateBasic = async (
   number: string
 ) => {
   try {
-    const { apiHost, appversion, idToken } = await apiDefault();
+    const { apiHost, idToken } = await apiDefault();
 
     const res = await fetch(`${apiHost}api/v3/admin/congregations/${id}`, {
       method: 'PATCH',
@@ -222,7 +215,6 @@ export const apiCongregationUpdateBasic = async (
         'Content-Type': 'application/json',
         Authorization: `Bearer ${idToken}`,
         appclient: 'admin',
-        appversion,
       },
       body: JSON.stringify({ name, number }),
     });
