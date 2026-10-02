@@ -20,7 +20,7 @@ const CongregationCountry = ({ country }: CongregationCountryProps) => {
         aria-controls={`panel-${country.country_code}-content"`}
         id={`panel-${country.country_code}-header"`}
       >
-        <Typography fontWeight="bold">
+        <Typography sx={{ fontWeight: 'bold' }}>
           ({country.country_code}) {country.country_name} [
           {country.congregations.length}]
         </Typography>

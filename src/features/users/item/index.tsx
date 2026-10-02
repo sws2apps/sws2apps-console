@@ -91,7 +91,7 @@ const UserItem = (props: UserItemProps) => {
 
             <Divider />
 
-            <Typography variant="button" fontWeight="bold">
+            <Typography variant="button" sx={{ fontWeight: 'bold' }}>
               Basic information
             </Typography>
 
@@ -108,7 +108,7 @@ const UserItem = (props: UserItemProps) => {
                   <Divider />
 
                   {person.profile.global_role === 'vip' && (
-                    <Typography variant="button" fontWeight="bold">
+                    <Typography variant="button" sx={{ fontWeight: 'bold' }}>
                       Congregation Roles
                     </Typography>
                   )}

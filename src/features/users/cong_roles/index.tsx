@@ -104,7 +104,10 @@ const CongRoles = ({ roles, onChange, global_role }: CongRolesProps) => {
         </Grid>
       )}
 
-      <Typography variant="button" fontWeight="bold" fontStyle="italic">
+      <Typography
+        variant="button"
+        sx={{ fontWeight: 'bold', fontStyle: 'italic' }}
+      >
         Read-only roles
       </Typography>
       <FormGroup>

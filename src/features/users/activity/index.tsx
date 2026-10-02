@@ -4,12 +4,12 @@ import { ActivityProps } from './index.type';
 const Activity = ({ createdAt, last_seen }: ActivityProps) => {
   return (
     <Stack spacing="4px">
-      <Typography variant="subtitle2" textAlign="right">
+      <Typography variant="subtitle2" sx={{ textAlign: 'right' }}>
         Created at: {new Date(createdAt).toLocaleString()}
       </Typography>
 
       {last_seen && (
-        <Typography variant="subtitle2" textAlign="right">
+        <Typography variant="subtitle2" sx={{ textAlign: 'right' }}>
           Last seen at: {last_seen}
         </Typography>
       )}

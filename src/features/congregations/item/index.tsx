@@ -102,7 +102,7 @@ const CongregationItem = (props: CongregationItemProps) => {
 
                 {persons.length > 0 && (
                   <Stack spacing="12px">
-                    <Typography fontWeight="bold">
+                    <Typography sx={{ fontWeight: 'bold' }}>
                       PERSONS ({persons.length})
                     </Typography>
 
@@ -138,7 +138,7 @@ const CongregationItem = (props: CongregationItemProps) => {
                 )}
 
                 <Stack spacing="12px">
-                  <Typography fontWeight="bold">
+                  <Typography sx={{ fontWeight: 'bold' }}>
                     SPEAKERS SHARING ({requests.length})
                   </Typography>
 

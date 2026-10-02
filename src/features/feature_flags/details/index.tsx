@@ -55,7 +55,7 @@ const FeatureFlagDetails = (props: FeatureFlagDetailsProps) => {
           padding: '0px 12px',
         }}
       >
-        <Typography fontWeight="bold">Coverage</Typography>
+        <Typography sx={{ fontWeight: 'bold' }}>Coverage</Typography>
 
         <Slider
           aria-label="Coverage"

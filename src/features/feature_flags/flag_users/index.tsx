@@ -27,7 +27,7 @@ const FlagUsers = (props: FlagUsersProps) => {
 
   return (
     <Stack spacing="24px">
-      <Typography variant="button" fontWeight="bold">
+      <Typography variant="button" sx={{ fontWeight: 'bold' }}>
         USERS
       </Typography>
 
@@ -56,14 +56,15 @@ const FlagUsers = (props: FlagUsersProps) => {
             {...params}
             label="Add new user"
             slotProps={{
+              ...params.slotProps,
               input: {
-                ...params.InputProps,
+                ...params.slotProps.input,
                 endAdornment: (
                   <>
                     {loading ? (
                       <CircularProgress color="inherit" size={20} />
                     ) : null}
-                    {params.InputProps.endAdornment}
+                    {params.slotProps.input.endAdornment}
                   </>
                 ),
               },

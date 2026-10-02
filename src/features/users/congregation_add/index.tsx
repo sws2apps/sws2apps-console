@@ -44,14 +44,15 @@ const CongregationAdd = (props: CongregationAddProps) => {
             {...params}
             label="Find congregation"
             slotProps={{
+              ...params.slotProps,
               input: {
-                ...params.InputProps,
+                ...params.slotProps.input,
                 endAdornment: (
                   <>
                     {loading ? (
                       <CircularProgress color="inherit" size={20} />
                     ) : null}
-                    {params.InputProps.endAdornment}
+                    {params.slotProps.input.endAdornment}
                   </>
                 ),
               },

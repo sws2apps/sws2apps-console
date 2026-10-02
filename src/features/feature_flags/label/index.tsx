@@ -25,7 +25,7 @@ const Label = (props: LabelProps) => {
         )}
         {flag.availability === 'user' && <IconAccount color="green" />}
 
-        <Typography variant="body2" fontWeight="bold">
+        <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
           {flag.name}
         </Typography>
       </Box>

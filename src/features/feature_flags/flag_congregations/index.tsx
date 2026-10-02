@@ -27,7 +27,7 @@ const FlagCongregations = (props: FlagCongregationsProps) => {
 
   return (
     <Stack spacing="24px">
-      <Typography variant="button" fontWeight="bold">
+      <Typography variant="button" sx={{ fontWeight: 'bold' }}>
         CONGREGATIONS
       </Typography>
 
@@ -55,14 +55,15 @@ const FlagCongregations = (props: FlagCongregationsProps) => {
             {...params}
             label="Add new congregation"
             slotProps={{
+              ...params.slotProps,
               input: {
-                ...params.InputProps,
+                ...params.slotProps.input,
                 endAdornment: (
                   <>
                     {loading ? (
                       <CircularProgress color="inherit" size={20} />
                     ) : null}
-                    {params.InputProps.endAdornment}
+                    {params.slotProps.input.endAdornment}
                   </>
                 ),
               },

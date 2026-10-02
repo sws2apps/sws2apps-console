@@ -9,31 +9,31 @@ export default defineConfig({
     alias: [
       {
         find: '@components',
-        replacement: resolve(__dirname, 'src/components'),
+        replacement: resolve(import.meta.dirname, 'src/components'),
       },
       {
         find: '@pages',
-        replacement: resolve(__dirname, 'src/pages'),
+        replacement: resolve(import.meta.dirname, 'src/pages'),
       },
       {
         find: '@features',
-        replacement: resolve(__dirname, 'src/features'),
+        replacement: resolve(import.meta.dirname, 'src/features'),
       },
       {
         find: '@icons',
-        replacement: resolve(__dirname, 'src/icons'),
+        replacement: resolve(import.meta.dirname, 'src/icons'),
       },
       {
         find: '@states',
-        replacement: resolve(__dirname, 'src/states'),
+        replacement: resolve(import.meta.dirname, 'src/states'),
       },
       {
         find: '@services',
-        replacement: resolve(__dirname, 'src/services'),
+        replacement: resolve(import.meta.dirname, 'src/services'),
       },
       {
         find: '@definition',
-        replacement: resolve(__dirname, 'src/definition'),
+        replacement: resolve(import.meta.dirname, 'src/definition'),
       },
     ],
   },

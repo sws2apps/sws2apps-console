@@ -29,7 +29,7 @@ const GlobalRole = ({ group }: GlobalRoleProps) => {
         aria-controls={`panel-${group.global_role}-content"`}
         id={`panel-${group.global_role}-header"`}
       >
-        <Typography fontWeight="bold">
+        <Typography sx={{ fontWeight: 'bold' }}>
           {group.global_role.toUpperCase()} ({group.users.length})
         </Typography>
       </AccordionSummary>

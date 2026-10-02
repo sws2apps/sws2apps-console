@@ -6,7 +6,7 @@ const Signin = () => {
 
   return (
     <>
-      <Typography variant="h6" textAlign="center">
+      <Typography variant="h6" sx={{ textAlign: 'center' }}>
         Welcome to the sws2pps console
       </Typography>
 
@@ -19,7 +19,7 @@ const Signin = () => {
           gap: '12px',
         }}
       >
-        <Typography textAlign="center">Please sign in to continue</Typography>
+        <Typography sx={{ textAlign: 'center' }}>Please sign in to continue</Typography>
 
         <Button
           variant="contained"

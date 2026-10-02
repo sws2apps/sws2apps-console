@@ -5,7 +5,7 @@ import SessionItem from '../session_item';
 const SessionsList = ({ sessions, onTerminate }: SessionsListProps) => {
   return (
     <Stack spacing="24px">
-      <Typography variant="button" fontWeight="bold">
+      <Typography variant="button" sx={{ fontWeight: 'bold' }}>
         SESSIONS
       </Typography>
 

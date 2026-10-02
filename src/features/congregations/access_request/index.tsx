@@ -8,7 +8,7 @@ const CongregationAccessRequest = ({
 }: CongregationAccessRequestProps) => {
   return (
     <Paper elevation={2} sx={{ padding: '5px 10px', flexGrow: 1 }}>
-      <Grid container spacing={1} alignItems="center">
+      <Grid container spacing={1} sx={{ alignItems: 'center' }}>
         <Grid size={8}>
           <Typography sx={{ fontWeight: 'bold', fontSize: '16px' }}>
             ({request.cong_country}) {request.cong_name}, {request.cong_number}
