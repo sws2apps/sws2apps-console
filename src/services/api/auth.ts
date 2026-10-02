@@ -3,7 +3,7 @@ import { apiDefault } from './common';
 
 export const apiLoginUser = async () => {
   try {
-    const { apiHost, appversion, idToken } = await apiDefault();
+    const { apiHost, idToken } = await apiDefault();
 
     const res = await fetch(`${apiHost}api/v3/user-login`, {
       method: 'GET',
@@ -12,7 +12,6 @@ export const apiLoginUser = async () => {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${idToken}`,
         appclient: 'admin',
-        appversion,
       },
     });
 
@@ -30,7 +29,7 @@ export const apiLoginUser = async () => {
 
 export const apiAuthorizeUser = async () => {
   try {
-    const { apiHost, appversion, idToken } = await apiDefault();
+    const { apiHost, idToken } = await apiDefault();
 
     const res = await fetch(`${apiHost}api/v3/admin`, {
       method: 'GET',
@@ -39,7 +38,6 @@ export const apiAuthorizeUser = async () => {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${idToken}`,
         appclient: 'admin',
-        appversion,
       },
     });
 
@@ -61,7 +59,7 @@ export const apiAuthorizeUser = async () => {
 
 export const apiVerifyOTP = async (userOTP: string) => {
   try {
-    const { apiHost, appversion, idToken } = await apiDefault();
+    const { apiHost, idToken } = await apiDefault();
 
     const res = await fetch(`${apiHost}api/v3/mfa/verify-token`, {
       method: 'POST',
@@ -70,7 +68,6 @@ export const apiVerifyOTP = async (userOTP: string) => {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${idToken}`,
         appclient: 'admin',
-        appversion,
       },
       body: JSON.stringify({ token: userOTP }),
     });
@@ -89,7 +86,7 @@ export const apiVerifyOTP = async (userOTP: string) => {
 
 export const apiSignOutUser = async () => {
   try {
-    const { apiHost, appversion, idToken } = await apiDefault();
+    const { apiHost, idToken } = await apiDefault();
 
     const res = await fetch(`${apiHost}api/v3/admin/logout`, {
       method: 'GET',
@@ -98,7 +95,6 @@ export const apiSignOutUser = async () => {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${idToken}`,
         appclient: 'admin',
-        appversion,
       },
     });
 

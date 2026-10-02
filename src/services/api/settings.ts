@@ -2,7 +2,7 @@ import { apiDefault } from './common';
 
 export const apiClientVersionGet = async () => {
   try {
-    const { apiHost, appversion, idToken } = await apiDefault();
+    const { apiHost, idToken } = await apiDefault();
 
     const res = await fetch(`${apiHost}api/v3/admin/client-version`, {
       method: 'GET',
@@ -11,7 +11,6 @@ export const apiClientVersionGet = async () => {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${idToken}`,
         appclient: 'admin',
-        appversion,
       },
     });
 
@@ -29,7 +28,7 @@ export const apiClientVersionGet = async () => {
 
 export const apiClientVersionSet = async (version: string) => {
   try {
-    const { apiHost, appversion, idToken } = await apiDefault();
+    const { apiHost, idToken } = await apiDefault();
 
     const res = await fetch(`${apiHost}api/v3/admin/client-version`, {
       method: 'POST',
@@ -38,7 +37,6 @@ export const apiClientVersionSet = async (version: string) => {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${idToken}`,
         appclient: 'admin',
-        appversion,
       },
       body: JSON.stringify({ version }),
     });

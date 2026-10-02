@@ -7,15 +7,14 @@
     "module": "ESNext",
     "skipLibCheck": true,
 
-    "baseUrl": "./src",
     "paths": {
-      "@components/*": ["components/*"],
-      "@pages/*": ["pages/*"],
-      "@features/*": ["features/*"],
-      "@icons/*": ["icons/*"],
-      "@states/*": ["states/*"],
-      "@services/*": ["services/*"],
-      "@definition/*": ["definition/*"]
+      "@components/*": ["./src/components/*"],
+      "@pages/*": ["./src/pages/*"],
+      "@features/*": ["./src/features/*"],
+      "@icons/*": ["./src/icons/*"],
+      "@states/*": ["./src/states/*"],
+      "@services/*": ["./src/services/*"],
+      "@definition/*": ["./src/definition/*"]
     },
 
     /* Bundler mode */

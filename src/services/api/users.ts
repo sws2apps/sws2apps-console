@@ -4,7 +4,7 @@ import { CongRole } from '@definition/congregation';
 
 export const apiUsersGet = async () => {
   try {
-    const { apiHost, appversion, idToken } = await apiDefault();
+    const { apiHost, idToken } = await apiDefault();
 
     const res = await fetch(`${apiHost}api/v3/admin/users`, {
       method: 'GET',
@@ -13,7 +13,6 @@ export const apiUsersGet = async () => {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${idToken}`,
         appclient: 'admin',
-        appversion,
       },
     });
 
@@ -31,7 +30,7 @@ export const apiUsersGet = async () => {
 
 export const apiUserDelete = async (id: string) => {
   try {
-    const { apiHost, appversion, idToken } = await apiDefault();
+    const { apiHost, idToken } = await apiDefault();
 
     const res = await fetch(`${apiHost}api/v3/admin/users/${id}`, {
       method: 'DELETE',
@@ -40,7 +39,6 @@ export const apiUserDelete = async (id: string) => {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${idToken}`,
         appclient: 'admin',
-        appversion,
       },
     });
 
@@ -58,7 +56,7 @@ export const apiUserDelete = async (id: string) => {
 
 export const apiUserDisableMFA = async (id: string) => {
   try {
-    const { apiHost, appversion, idToken } = await apiDefault();
+    const { apiHost, idToken } = await apiDefault();
 
     const res = await fetch(`${apiHost}api/v3/admin/users/${id}/disable-2fa`, {
       method: 'GET',
@@ -67,7 +65,6 @@ export const apiUserDisableMFA = async (id: string) => {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${idToken}`,
         appclient: 'admin',
-        appversion,
       },
     });
 
@@ -97,7 +94,7 @@ export const apiUserUpdate = async ({
   roles: CongRole[];
 }) => {
   try {
-    const { apiHost, appversion, idToken } = await apiDefault();
+    const { apiHost, idToken } = await apiDefault();
 
     const res = await fetch(`${apiHost}api/v3/admin/users/${id}`, {
       method: 'PATCH',
@@ -106,7 +103,6 @@ export const apiUserUpdate = async ({
         'Content-Type': 'application/json',
         Authorization: `Bearer ${idToken}`,
         appclient: 'admin',
-        appversion,
       },
       body: JSON.stringify({ email, firstname, lastname, roles }),
     });
@@ -125,7 +121,7 @@ export const apiUserUpdate = async ({
 
 export const apiUserDeleteSession = async (id: string, identifier: string) => {
   try {
-    const { apiHost, appversion, idToken } = await apiDefault();
+    const { apiHost, idToken } = await apiDefault();
 
     const res = await fetch(`${apiHost}api/v3/admin/users/${id}/sessions`, {
       method: 'DELETE',
@@ -134,7 +130,6 @@ export const apiUserDeleteSession = async (id: string, identifier: string) => {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${idToken}`,
         appclient: 'admin',
-        appversion,
       },
       body: JSON.stringify({ identifiers: [identifier] }),
     });
@@ -153,7 +148,7 @@ export const apiUserDeleteSession = async (id: string, identifier: string) => {
 
 export const apiUserDeleteSessions = async (id: string) => {
   try {
-    const { apiHost, appversion, idToken } = await apiDefault();
+    const { apiHost, idToken } = await apiDefault();
 
     const res = await fetch(`${apiHost}api/v3/admin/users/${id}/sessions`, {
       method: 'DELETE',
@@ -162,7 +157,6 @@ export const apiUserDeleteSessions = async (id: string) => {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${idToken}`,
         appclient: 'admin',
-        appversion,
       },
       body: JSON.stringify({ identifiers: [] }),
     });
@@ -184,7 +178,7 @@ export const apiUserAssignCongregation = async (
   congregation: string
 ) => {
   try {
-    const { apiHost, appversion, idToken } = await apiDefault();
+    const { apiHost, idToken } = await apiDefault();
 
     const res = await fetch(`${apiHost}api/v3/admin/users/${id}/congregation`, {
       method: 'PATCH',
@@ -193,7 +187,6 @@ export const apiUserAssignCongregation = async (
         'Content-Type': 'application/json',
         Authorization: `Bearer ${idToken}`,
         appclient: 'admin',
-        appversion,
       },
       body: JSON.stringify({ congregation }),
     });
@@ -212,7 +205,7 @@ export const apiUserAssignCongregation = async (
 
 export const apiUserCongregationRemove = async (id: string) => {
   try {
-    const { apiHost, appversion, idToken } = await apiDefault();
+    const { apiHost, idToken } = await apiDefault();
 
     const res = await fetch(`${apiHost}api/v3/admin/users/${id}/congregation`, {
       method: 'DELETE',
@@ -221,7 +214,6 @@ export const apiUserCongregationRemove = async (id: string) => {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${idToken}`,
         appclient: 'admin',
-        appversion,
       },
     });
 

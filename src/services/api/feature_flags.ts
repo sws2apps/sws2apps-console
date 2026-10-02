@@ -3,7 +3,7 @@ import { apiDefault } from './common';
 
 export const apiFlagsGet = async () => {
   try {
-    const { apiHost, appversion, idToken } = await apiDefault();
+    const { apiHost, idToken } = await apiDefault();
 
     const res = await fetch(`${apiHost}api/v3/admin/flags`, {
       method: 'GET',
@@ -12,7 +12,6 @@ export const apiFlagsGet = async () => {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${idToken}`,
         appclient: 'admin',
-        appversion,
       },
     });
 
@@ -38,7 +37,7 @@ export const apiFlagsCreate = async ({
   availability: APIFeatureFlag['availability'];
 }) => {
   try {
-    const { apiHost, appversion, idToken } = await apiDefault();
+    const { apiHost, idToken } = await apiDefault();
 
     const res = await fetch(`${apiHost}api/v3/admin/flags`, {
       method: 'POST',
@@ -47,7 +46,6 @@ export const apiFlagsCreate = async ({
         'Content-Type': 'application/json',
         Authorization: `Bearer ${idToken}`,
         appclient: 'admin',
-        appversion,
       },
       body: JSON.stringify({ desc, name, availability }),
     });
@@ -66,7 +64,7 @@ export const apiFlagsCreate = async ({
 
 export const apiFlagDelete = async (id: string) => {
   try {
-    const { apiHost, appversion, idToken } = await apiDefault();
+    const { apiHost, idToken } = await apiDefault();
 
     const res = await fetch(`${apiHost}api/v3/admin/flags/${id}`, {
       method: 'DELETE',
@@ -75,7 +73,6 @@ export const apiFlagDelete = async (id: string) => {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${idToken}`,
         appclient: 'admin',
-        appversion,
       },
     });
 
@@ -103,7 +100,7 @@ export const apiFlagUpdate = async ({
   coverage: number;
 }) => {
   try {
-    const { apiHost, appversion, idToken } = await apiDefault();
+    const { apiHost, idToken } = await apiDefault();
 
     const res = await fetch(`${apiHost}api/v3/admin/flags/${id}`, {
       method: 'PATCH',
@@ -112,7 +109,6 @@ export const apiFlagUpdate = async ({
         'Content-Type': 'application/json',
         Authorization: `Bearer ${idToken}`,
         appclient: 'admin',
-        appversion,
       },
       body: JSON.stringify({ coverage, description, name }),
     });
@@ -131,7 +127,7 @@ export const apiFlagUpdate = async ({
 
 export const apiFlagToggle = async (id: string) => {
   try {
-    const { apiHost, appversion, idToken } = await apiDefault();
+    const { apiHost, idToken } = await apiDefault();
 
     const res = await fetch(`${apiHost}api/v3/admin/flags/${id}/toggle`, {
       method: 'GET',
@@ -140,7 +136,6 @@ export const apiFlagToggle = async (id: string) => {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${idToken}`,
         appclient: 'admin',
-        appversion,
       },
     });
 
@@ -158,7 +153,7 @@ export const apiFlagToggle = async (id: string) => {
 
 export const apiUserFlagToggle = async (userId: string, flagid: string) => {
   try {
-    const { apiHost, appversion, idToken } = await apiDefault();
+    const { apiHost, idToken } = await apiDefault();
 
     const res = await fetch(
       `${apiHost}api/v3/admin/users/${userId}/feature-flags`,
@@ -169,7 +164,6 @@ export const apiUserFlagToggle = async (userId: string, flagid: string) => {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${idToken}`,
           appclient: 'admin',
-          appversion,
         },
         body: JSON.stringify({ flagid }),
       }
@@ -192,7 +186,7 @@ export const apiCongregationFlagToggle = async (
   flagid: string
 ) => {
   try {
-    const { apiHost, appversion, idToken } = await apiDefault();
+    const { apiHost, idToken } = await apiDefault();
 
     const res = await fetch(
       `${apiHost}api/v3/admin/congregations/${congId}/feature-flags`,
@@ -203,7 +197,6 @@ export const apiCongregationFlagToggle = async (
           'Content-Type': 'application/json',
           Authorization: `Bearer ${idToken}`,
           appclient: 'admin',
-          appversion,
         },
         body: JSON.stringify({ flagid }),
       }
