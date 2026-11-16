@@ -34,6 +34,6 @@
     "rollup": "^4.68.2",
     "typescript": "^7.0.2",
     "typescript-eslint": "^8.72.2",
-    "vite": "^8.3.7"
+    "vite": "^8.3.8"
   }
 }
